@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+
+    <style>
+        h1 {text-align: center;}
+        p {text-align: left;}
+        div {text-align: center;}
+        h2 {text-align: left;}
+        </style>
+
+<title>AVL Trees</title>
+</head>
+<!--<img src="car.jpg" style="height:100%; width:100%" alt="">-->
+
+<body>
+<!--<body style="background-image:url(anki.png); background-repeat: no-repeat; background-position:top ; background-size: cover; ">-->
+  <div class="code" style="position: absolute; top:0%">
+ 
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+ 
+              
+                
+                <!--<a class="nav-item nav-link" href="/book" style="color:black;">Book Now</a>-->
+
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <div class="container" style="position: absolute; top:10%; left:17%">
+        <body style="background-color:rgb(233, 192, 192);">
+
+        <h1>AVL TREES</h1>
+        <h2>What are AVL trees?</h2>
+        <p>Named after their inventor Adelson, Velski & Landis, AVL trees are height balancing binary search tree. AVL tree checks the height of the left and the right sub-trees and assures that the difference is not more than 1. This difference is called the Balance Factor.</p>
+        <h2>Operations</h2>
+        <p><b>Insertion:</b>Adding an element to an AVL tree is similar to adding one in a BST, but the process takes into account an extra attribute, the balance factor for each node. This factor indicates whether the tree is left-heavy (the height of the left sub-tree is 1 greater than the right sub-tree), balanced (both sub-trees are the same height) or right-heavy (the height of the right sub-tree is 1 greater than the left sub-tree). If the balance would be destroyed by an insertion, a rotation is performed to correct the balance.</p>
+        <p><b>Rotation:</b></p>
+        <p><b>Deletion:</b></p>
+        <p><b>Searching:</b></p>
+        <h2>Our objective: </h2>
+        <p>blah</p>
+
+        <button type="submit" class="btn btn-info">View Visualization</button>
+
+
+    </div>
+
+   
+   
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
