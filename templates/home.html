@@ -15,16 +15,16 @@
         h1 {text-align: center;}
         p {text-align: left;}
         div {text-align: center;}
-        h2 {text-align: left;}
+        h2 {text-align: center;}
 
         .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 200px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #111; /* Black */
+  background-color:#ff00aa;/* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
@@ -34,7 +34,7 @@
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color:black;
   display: block;
 }
 
@@ -45,7 +45,7 @@
 
 /* Style page content */
 .main {
-  margin-left: 160px; /* Same as the width of the sidebar */
+  margin-left: 210px; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
 
@@ -63,7 +63,7 @@
 <body>
 <!--<body style="background-image:url(anki.png); background-repeat: no-repeat; background-position:top ; background-size: cover; ">-->
   <div class="code" style="position: absolute; top:0%">
- 
+   
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -74,31 +74,35 @@
   {% endif %}
 {% endwith %}
 </div>
-<div>
+  <!--THE SIDE NAV BAR FOR THE SITE-->
 <div class="sidenav">
-  <a href="#" onclick="return show('AVL0');">About</a>
-  <a href="#"onclick="return show('AVL1');">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <a href="#" onclick="return show('AVL0');">Introduction</a>
+  <a href="#"onclick="return show('AVL1');">Operations</a>
+  <a href="#" onclick="return show('AVL2');">Our objective</a>
+  <br/><br/><br/><br/>
+  <a href="#"><button class="btn btn-success">Visualise</button></a>
 </div>
-
+<!--THE FUNCTION THAT HANDLES CHANGE OF SITE-->
 <script>
   var curr1='AVL0';
   function show(shown) {
-    console.log(curr1);
+    if(curr1!=shown){
   document.getElementById(shown).style.display='block';
   
   document.getElementById(curr1).style.display='none';
   curr1=shown;
+    }
   return false;
 }
   </script>
+  <div class="main">
+    <!--THE FIRST PAGE-->
   <div id="AVL0">
-    <h1>AVL TREES</h1>
     <h2>What are AVL trees?</h2>
     <p>Named after their inventor Adelson, Velski & Landis, AVL trees are height balancing binary search tree. AVL tree checks the height of the left and the right sub-trees and assures that the difference is not more than 1. This difference is called the Balance Factor.</p>
 
   </div>
+  <!--THE SECOND PAGE-->
   <div id="AVL1">
     <h2>Operations</h2>
         <p><b>Insertion:</b>Adding an element to an AVL tree is similar to adding one in a BST, but the process takes into account an extra attribute, the balance factor for each node. This factor indicates whether the tree is left-heavy (the height of the left sub-tree is 1 greater than the right sub-tree), balanced (both sub-trees are the same height) or right-heavy (the height of the right sub-tree is 1 greater than the left sub-tree). If the balance would be destroyed by an insertion, a rotation is performed to correct the balance.</p>
@@ -106,7 +110,17 @@
         <p><b>Deletion:</b></p>
         <p><b>Searching:</b></p>
   </div>
-</div>
+  <!--THE THIRD PAGE-->
+  <div id="AVL2">
+    <h2>Our objective: </h2>
+        <p>blah</p>
+  </div>
+  <!--EXPLICITLY HIDING THE OTHER TWO-->
+  <script type="text/javascript">
+    document.getElementById('AVL1').style.display='none';
+    document.getElementById('AVL2').style.display='none';
+  </script>
+  </div>
 
    
    
