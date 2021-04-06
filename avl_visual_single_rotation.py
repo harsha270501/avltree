@@ -35,15 +35,21 @@ class BinarySearchTree:
     # function to find the position where the new element has to be inserted
 
     def findInsert(self, e, curnode):
+        sleep(1)
         if curnode != None:
+            self.pointer.pos=curnode.currobj.pos
             if e < curnode.element:
                 if curnode.leftchild == None:
+                    sleep(1)
+                    self.pointer.color=color.yellow
                     return curnode
                 else:
                     return self.findInsert(e, curnode.leftchild)
             else:
 
                 if curnode.rightchild == None:
+                    sleep(1)
+                    self.pointer.color=color.yellow
                     return curnode
                 else:
                     return self.findInsert(e, curnode.rightchild)
@@ -359,7 +365,6 @@ class BinarySearchTree:
         
         u = self.insertElement(e)
         v = u.parent
-
         if v == None:
             vect = vector(0, 0, 0)
             s = sphere(pos=vect, radius=0.25, color=color.green)
@@ -404,25 +409,27 @@ class BinarySearchTree:
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
-
+        self.pointer.pos=u.currobj.pos
         if int(u.currobj.pos.x) in self.posnode.keys():
-            self.clashHandle(self.posnode[int(u.currobj.pos.x)],
-                             u.element)
+            self.clashHandle(self.posnode[int(u.currobj.pos.x)],u.element)
             self.posnode[int(u.currobj.pos.x)] = u
 
         else:
             self.posnode[int(u.currobj.pos.x)] = u
+        self.pointer.pos=u.currobj.pos
+        sleep(1)
+        self.pointer.color=color.cyan
         scene.visible = True
+        
         self.trinode_restructure(u)
         for (i,v) in self.posnode.items():
                 print(i," ",v.element)
-        
+        self.pointer.pos=u.currobj.pos
         return
 
     # BST insertion - visualisation
-
     def insertVisual(self, e):
-        rate(1)
+        #rate(1)
         u = self.insertElementAVL(e)
         
     # function to handle clashes
@@ -489,7 +496,7 @@ class BinarySearchTree:
                     
                     beforepos =  currnode.currobj.pos
                     
-                    currnode.currobj.pos.x =int(currnode.currobj.pos.x)+cx
+                    currnode.currobj.pos.x =int(currnode.currobj.pos.x)+int(cx)
 
                     currnode.arrparent.pos = currnode.parent.currobj.pos
                     currnode.arrparent.axis = currnode.currobj.pos - currnode.parent.currobj.pos
@@ -504,20 +511,23 @@ class BinarySearchTree:
                     
                     changedx = int(currnode.currobj.pos.x)
                     if changedx in self.posnode.keys():
-                        if self.posnode[changedx].parent != currnode:
+                        if self.posnode[changedx].currobj.pos.y > currnode.currobj.pos.y:
                             self.clashHandle(self.posnode[changedx],
                                     currnode.element)
                             return -1
 
                     self.posnode[changedx] = currnode
                     f=0
+                    l=[]
                     for (k, v) in self.posnode.items():
                         if v == currnode and k != changedx:
                             f=1
-                            del self.posnode[k]
+                            break
+                   
                             
-#                    if(f==1):
-#                        if k != changedx:
+                    if(f==1):
+                        if k != changedx:
+                            del self.posnode[k]
                             
 #                     print (
 #                         'A:',
@@ -723,7 +733,7 @@ class BinarySearchTree:
                 u.currobj.pos.y = y
                 u.textobj.pos.y = y
                 while(j<2):
-                    rate(1)
+                    sleep(1)
                     u.currobj.pos.y += 1
                     u.textobj.pos.y += 1
                     j+=1
@@ -847,33 +857,10 @@ class BinarySearchTree:
 
 def testmain():
     ch = 'y'
-    bst2 = BinarySearchTree()
-    bst2.pointer = ring(pos=vector(0,0,0),axis=vector(0,0,1),radius=0.26,color=color.purple,thickness=0.1)
     
-    ch = input('Do you want to continue?(y/n): ')
-#     scene = canvas()
-    
-    if ch!='y':
-        return
-#     ch = 'y'
-    
-    print('Visualisation - BST tree insertion')
-    while ch == 'y':
-        rate(1)
-        bst2.pointer.pos = vector(0,0,0)
-        i = int(input('Enter element to be inserted: '))
-        bst2.insertVisual(i)
-
-        bst2.pointer.color=color.red
-        print("in search")
-        bst2.searchvis(i,bst2.root)
-            
-        scene.waitfor('click')
-        ch = input('Do you want to continue?(y/n): ')
-
-"""    bstadt = BinarySearchTree()
-#     bstadt.pointer.visible = False
-#     scene.visible = False
+    """bstadt = BinarySearchTree()
+    bstadt.pointer.visible = False
+    scene.visible = False
     print('ADT Demo: ')
     while ch == 'y':
         print('1.Creation 2.Insertion 3.Deletion')
@@ -920,9 +907,9 @@ def testmain():
         else:
             print('Invalid option')
         ch = input('Do you want to continue?(y/n): ')
-
+"""
     print('Visualisation - Create AVL tree')
-#     scene.visible = False
+#       scene.visible = False
 #     scene = canvas()
     bst1 = BinarySearchTree()
 #     bst1.pointer.visible = False
@@ -934,7 +921,7 @@ def testmain():
     objlist = []
     y = x
     for i in l:
-        rate(1)
+        sleep(1)
         n = node()
         n.element = i
         s = sphere(pos=vector(x, y, 0), radius=0.25, color=color.green)
@@ -948,12 +935,47 @@ def testmain():
         objlist.append(n)
         
     bst1.createTree(objlist)
-    
     scene.waitfor('click')
-    
     bst1.preOrderHideTraverse(bst1.root)
-""" 
+
+    bst2 = BinarySearchTree()
+    bst2.pointer = ring(pos=vector(0,0,0),axis=vector(0,0,1),radius=0.26,color=color.purple,thickness=0.1)
+    ch = input('Do you want to continue?(y/n): ')
+#     scene = canvas()
     
+    if ch!='y':
+        return
+#     ch = 'y'
+    
+    
+    while ch == 'y':
+        rate(1)
+        op=int(input("Enter option : 1.Insertion 2. Searching"))
+        if(op==1):
+            print('Visualisation - BST tree insertion')
+            bst2.pointer.pos = vector(0,0,0)
+            bst2.pointer.color=color.red
+            i = int(input('Enter element to be inserted: '))
+            bst2.insertVisual(i)
+        elif(op==2):
+            print('Visualisation - BST tree Searching')
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.red
+                i = int(input('Enter element to be searched: '))
+                bst2.searchvis(i,bst2.root)
+                if(bst2.pointer.color==color.red):
+                    print("Element",i,"does not exist in tree")
+                else:
+                    print("Element found")
+        else:
+            print("Invalid option")
+
+#       scene.waitfor('click')
+        ch = input('Do you want to continue?(y/n): ')
+
 
 def main():
     testmain()
