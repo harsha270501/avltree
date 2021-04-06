@@ -427,11 +427,14 @@ class BinarySearchTree:
         
     # function to handle clashes
     def searchvis(self,k,n):
-        
-        rate(1)
+        sleep(1)
         self.pointer.pos=n.currobj.pos
+        #print(n.element)
+        #print(n.element==k)
         if n.element==k:
-            self.pointer.color=color.purple
+            sleep(1)
+            self.pointer.color=color.yellow
+            #print("is it getting reflected?")
             return 
         else:
             if k>n.element and n.rightchild!=None:
@@ -860,6 +863,11 @@ def testmain():
         bst2.pointer.pos = vector(0,0,0)
         i = int(input('Enter element to be inserted: '))
         bst2.insertVisual(i)
+
+        bst2.pointer.color=color.red
+        print("in search")
+        bst2.searchvis(i,bst2.root)
+            
         scene.waitfor('click')
         ch = input('Do you want to continue?(y/n): ')
 
