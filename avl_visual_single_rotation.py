@@ -99,7 +99,7 @@ class BinarySearchTree:
             print(self.posnode)
             q=[z]
             self.del_Pos_Before_Restructure(q)
-            print(self.posnode)
+            #print(self.posnode)
             if z.leftchild == None:
                 h1 = 0
             else:
@@ -466,8 +466,7 @@ class BinarySearchTree:
 
                 if currnode != None:
 
-                    if int(currnode.currobj.pos.x) \
-                        not in self.posnode.keys():
+                    if int(currnode.currobj.pos.x) not in self.posnode.keys():
                         return -1
 
                     print (
@@ -512,11 +511,11 @@ class BinarySearchTree:
                     for (k, v) in self.posnode.items():
                         if v == currnode and k != changedx:
                             f=1
-                            break
-                    if(f==1):
-                        if k != changedx:
                             del self.posnode[k]
-
+                            
+#                    if(f==1):
+#                        if k != changedx:
+                            
 #                     print (
 #                         'A:',
 #                         currnode.element,
