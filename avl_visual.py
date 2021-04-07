@@ -244,7 +244,7 @@ class BinarySearchTree:
                 if v == None:
                     vect = vector(0, 0, 0)
                     s = sphere(pos=vect, radius=0.25, color=color.green)
-                    ln = label(pos=vect, text=str(u.element), color=color.white,opacity=0, box=False)
+                    ln = label(pos=vect, text=str(u.element), color=color.white,opacity=0, height=18, box=False)
                     u.currobj = s
                     u.textobj = ln
                 else:
@@ -253,7 +253,7 @@ class BinarySearchTree:
                         vy = int(v.currobj.pos.y) - 1
                         vect = vector(vx, vy, 0)
                         s = sphere(pos=vect, radius=0.25, color=color.green)
-                        ln = label(pos=vect, text=str(u.element), color=color.white,
+                        ln = label(pos=vect, text=str(u.element), color=color.white, height=18,
                                 opacity=0, box=False)
                         a = arrow(
                             pos=v.currobj.pos,
@@ -271,7 +271,7 @@ class BinarySearchTree:
                         vy = int(v.currobj.pos.y) - 1
                         vect = vector(vx, vy, 0)
                         s = sphere(pos=vect, radius=0.25, color=color.green)
-                        ln = label(pos=vect, text=str(u.element), color=color.white,
+                        ln = label(pos=vect, text=str(u.element), color=color.white, height=18,
                                 opacity=0, box=False)
                         a = arrow(
                             pos=v.currobj.pos,
@@ -368,7 +368,7 @@ class BinarySearchTree:
         if v == None:
             vect = vector(0, 0, 0)
             s = sphere(pos=vect, radius=0.25, color=color.green)
-            ln = label(pos=vect, text=str(e), color=color.white,
+            ln = label(pos=vect, text=str(e), color=color.white, height=18,
                        opacity=0, box=False)
             u.currobj = s
             u.textobj = ln
@@ -378,7 +378,7 @@ class BinarySearchTree:
                 vy = int(v.currobj.pos.y) - 1
                 vect = vector(vx, vy, 0)
                 s = sphere(pos=vect, radius=0.25, color=color.green)
-                ln = label(pos=vect, text=str(e), color=color.white,
+                ln = label(pos=vect, text=str(e), color=color.white, height=18, 
                            opacity=0, box=False)
                 a = arrow(
                     pos=v.currobj.pos,
@@ -396,7 +396,7 @@ class BinarySearchTree:
                 vy = int(v.currobj.pos.y) - 1
                 vect = vector(vx, vy, 0)
                 s = sphere(pos=vect, radius=0.25, color=color.green)
-                ln = label(pos=vect, text=str(e), color=color.white,
+                ln = label(pos=vect, text=str(e), color=color.white, height=18,
                            opacity=0, box=False)
                 a = arrow(
                     pos=v.currobj.pos,
@@ -925,7 +925,7 @@ def testmain():
         n = node()
         n.element = i
         s = sphere(pos=vector(x, y, 0), radius=0.25, color=color.green)
-        ln = label(pos=vector(x, y, 0), text=str(i), color=color.white,
+        ln = label(pos=vector(x, y, 0), text=str(i), color=color.white, 
                    opacity=0, box=False)
         n.currobj = s
         n.textobj = ln
