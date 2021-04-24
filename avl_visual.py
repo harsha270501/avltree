@@ -448,6 +448,54 @@ class BinarySearchTree:
                 self.searchvis(k,n.rightchild)
             if k<n.element and n.leftchild!=None:
                 self.searchvis(k,n.leftchild)
+    def preordervis(self,n):
+        sleep(1)
+        self.pointer.pos=n.currobj.pos
+
+        if n.leftchild!=None:
+            self.preordervis(n.leftchild)
+
+        if n.rightchild!=None:
+            self.preordervis(n.rightchild)
+        return 
+    
+    def postordervis(self,n):
+        if n.leftchild!=None:
+            self.postordervis(n.leftchild)
+
+        if n.rightchild!=None:
+            self.postordervis(n.rightchild)
+        
+        sleep(1)
+        self.pointer.pos=n.currobj.pos
+        return
+    
+    def inordervis(self,n):
+        if n.leftchild!=None:
+            self.inordervis(n.leftchild)
+        sleep(1)
+        self.pointer.pos=n.currobj.pos
+
+        if n.rightchild!=None:
+            self.inordervis(n.rightchild)
+        return
+        
+    
+    def levelordervis(self,n):
+        q=[]
+        q.append(n)
+        while(len(q)!=0):
+            x=q.pop(0)
+            sleep(1)
+            print(x.element)
+            self.pointer.pos=x.currobj.pos
+            if x.leftchild!=None:
+                q.append(x.leftchild)
+            if x.rightchild!=None:
+                q.append(x.rightchild)
+        return
+        
+            
                 
     def clashHandle(self, fn, cnele):
         q = []
@@ -950,7 +998,7 @@ def testmain():
     
     while ch == 'y':
         rate(1)
-        op=int(input("Enter option : 1.Insertion 2. Searching"))
+        op=int(input("Enter option : 1.Insertion 2. Searching 3.Preorder 4.Postorder 5.Inorder 6.LevelOrder"))
         if(op==1):
             print('Visualisation - BST tree insertion')
             bst2.pointer.pos = vector(0,0,0)
@@ -970,6 +1018,38 @@ def testmain():
                     print("Element",i,"does not exist in tree")
                 else:
                     print("Element found")
+        elif(op==3):
+            print('Visualisation - Preorder')
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.yellow
+                bst2.preordervis(bst2.root)
+        elif(op==4):
+            print('Visualisation - Postorder')
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.yellow
+                bst2.postordervis(bst2.root)
+        elif(op==5):
+            print('Visualisation - Inorder')
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.yellow
+                bst2.inordervis(bst2.root)
+        elif(op==6):
+            print('Visualisation - Levelorder')
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.yellow
+                bst2.levelordervis(bst2.root)
         else:
             print("Invalid option")
 
