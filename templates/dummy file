@@ -1,0 +1,505 @@
+
+
+//This is the dummy file for all python codes in javaScript
+
+
+function node() {
+    if (this.ρσ_object_id === undefined) Object.defineProperty(this, "ρσ_object_id", {"value":++ρσ_object_counter});
+    node.prototype.__init__.apply(this, arguments);
+}
+node.prototype.__init__ = function __init__() {
+    var self = this;
+    self.element = 0;
+    self.leftchild = null;
+    self.rightchild = null;
+    self.parent = null;
+    self.currobj = null;
+    self.arrparent = null;
+    self.textobj = null;
+    self.freq = 0;
+    self.arrShaftWidth = .15;
+    self.arrHeadWidth = 2 * self.arrShaftWidth;
+    self.arrHeadLength = 3 * self.arrShaftWidth;
+};
+if (!node.prototype.__init__.__module__) Object.defineProperties(node.prototype.__init__, {
+    __module__ : {value: "__main__"}
+});
+node.__argnames__ = node.prototype.__init__.__argnames__;
+node.__handles_kwarg_interpolation__ = node.prototype.__init__.__handles_kwarg_interpolation__;
+node.prototype.__repr__ = function __repr__ () {
+        return "<" + __name__ + "." + this.constructor.name + " #" + this.ρσ_object_id + ">";
+};
+node.prototype.__str__ = function __str__ () {
+    return this.__repr__();
+};
+Object.defineProperty(node.prototype, "__bases__", {value: []});
+
+
+function findInsert(self, e, curnode) {
+    sleep(1);
+    if ((curnode !== null && (typeof curnode !== "object" || ρσ_not_equals(curnode, null)))) {
+        self.pointer.pos = curnode.currobj.pos;
+        if (e < curnode.element) {
+            if ((curnode.leftchild === null || typeof curnode.leftchild === "object" && ρσ_equals(curnode.leftchild, null))) {
+                sleep(1);
+                self.pointer.color = color.yellow;
+                return curnode;
+            } else {
+                return self.findInsert(e, curnode.leftchild);
+            }
+        } else {
+            if ((curnode.rightchild === null || typeof curnode.rightchild === "object" && ρσ_equals(curnode.rightchild, null))) {
+                sleep(1);
+                self.pointer.color = color.yellow;
+                return curnode;
+            } else {
+                return self.findInsert(e, curnode.rightchild);
+            }
+        }
+    }
+};
+if (!findInsert.__argnames__) Object.defineProperties(findInsert, {
+    __argnames__ : {value: ["self", "e", "curnode"]},
+    __module__ : {value: "__main__"}
+});
+
+
+function findDelete(self, e, curnode) {
+    if ((curnode !== null && (typeof curnode !== "object" || ρσ_not_equals(curnode, null)))) {
+        if (e < curnode.element) {
+            return self.findDelete(e, curnode.leftchild);
+        } else if ((e === curnode.element || typeof e === "object" && ρσ_equals(e, curnode.element))) {
+            return curnode;
+        } else {
+            return self.findDelete(e, curnode.rightchild);
+        }
+    }
+};
+if (!findDelete.__argnames__) Object.defineProperties(findDelete, {
+    __argnames__ : {value: ["self", "e", "curnode"]},
+    __module__ : {value: "__main__"}
+});
+
+function balanceCheck(self, w) {
+    var h;
+    if ((w !== null && (typeof w !== "object" || ρσ_not_equals(w, null)))) {
+        h = self.findHeightIter(w.leftchild) - self.findHeightIter(w.rightchild);
+        if (h < -1 || h > 1) {
+            return w;
+        } else {
+            return self.balanceCheck(w.parent);
+        }
+    }
+    return null;
+};
+if (!balanceCheck.__argnames__) Object.defineProperties(balanceCheck, {
+    __argnames__ : {value: ["self", "w"]},
+    __module__ : {value: "__main__"}
+});
+
+function restructureDel(self, u) {
+    var p1;
+    if ((u !== null && (typeof u !== "object" || ρσ_not_equals(u, null)))) {
+        p1 = u.parent;
+    }
+    if ((u === null || typeof u === "object" && ρσ_equals(u, null))) {
+        p1 = null;
+    }
+    self.trinode_restructure(u);
+    if ((p1 !== null && (typeof p1 !== "object" || ρσ_not_equals(p1, null)))) {
+        self.restructureDel(p1);
+    }
+};
+if (!restructureDel.__argnames__) Object.defineProperties(restructureDel, {
+    __argnames__ : {value: ["self", "u"]},
+    __module__ : {value: "__main__"}
+});
+
+function trinode_restructure(self, u) {
+    var z, q, h1, h2, y, x, sl, b, p, t2, t1;
+    z = self.balanceCheck(u);
+    if ((z !== null && (typeof z !== "object" || ρσ_not_equals(z, null)))) {
+        print("Imbalance at: ", z.element);
+        print(self.posnode);
+        q = ρσ_list_decorate([ z ]);
+        self.del_Pos_Before_Restructure(q);
+        if ((z.leftchild === null || typeof z.leftchild === "object" && ρσ_equals(z.leftchild, null))) {
+            h1 = 0;
+        } else {
+            h1 = self.findHeight(z.leftchild);
+        }
+        if ((z.rightchild === null || typeof z.rightchild === "object" && ρσ_equals(z.rightchild, null))) {
+            h2 = 0;
+        } else {
+            h2 = self.findHeight(z.rightchild);
+        }
+        if (h1 > h2) {
+            y = z.leftchild;
+        } else {
+            y = z.rightchild;
+        }
+        h1 = self.findHeight(y.leftchild);
+        h2 = self.findHeight(y.rightchild);
+        if (h1 > h2) {
+            x = y.leftchild;
+        } else {
+            x = y.rightchild;
+        }
+        sl = ρσ_list_decorate([]);
+        sl.append(x.element);
+        sl.append(y.element);
+        sl.append(z.element);
+        sl.sort();
+        if ((sl[1] === x.element || typeof sl[1] === "object" && ρσ_equals(sl[1], x.element))) {
+            b = x;
+        } else if ((sl[1] === y.element || typeof sl[1] === "object" && ρσ_equals(sl[1], y.element))) {
+            b = y;
+        } else if ((sl[1] === z.element || typeof sl[1] === "object" && ρσ_equals(sl[1], z.element))) {
+            b = z;
+        }
+        if ((b === y || typeof b === "object" && ρσ_equals(b, y))) {
+            p = z.parent;
+            if ((y === y.parent.leftchild || typeof y === "object" && ρσ_equals(y, y.parent.leftchild))) {
+                t2 = y.rightchild;
+                y.rightchild = z;
+                z.leftchild = t2;
+                if ((t2 !== null && (typeof t2 !== "object" || ρσ_not_equals(t2, null)))) {
+                    t2.parent = z;
+                }
+            } else {
+                t2 = y.leftchild;
+                y.leftchild = z;
+                z.rightchild = t2;
+                if ((t2 !== null && (typeof t2 !== "object" || ρσ_not_equals(t2, null)))) {
+                    t2.parent = z;
+                }
+            }
+            if ((p !== null && (typeof p !== "object" || ρσ_not_equals(p, null)))) {
+                if ((z === p.leftchild || typeof z === "object" && ρσ_equals(z, p.leftchild))) {
+                    p.leftchild = y;
+                } else {
+                    p.rightchild = y;
+                }
+            } else {
+                self.root = y;
+            }
+            y.parent = p;
+            z.parent = y;
+            q = ρσ_list_decorate([ y ]);
+            print(z.element, y.element, x.element);
+            self.new_Pos_After_Restructure(q);
+            print(z.element, y.element, x.element);
+        } else if ((b === x || typeof b === "object" && ρσ_equals(b, x))) {
+            p = z.parent;
+            t1 = x.leftchild;
+            t2 = x.rightchild;
+            if ((y === z.leftchild || typeof y === "object" && ρσ_equals(y, z.leftchild)) && (x === y.rightchild || typeof x === "object" && ρσ_equals(x, y.rightchild))) {
+                z.leftchild = t2;
+                if ((t2 !== null && (typeof t2 !== "object" || ρσ_not_equals(t2, null)))) {
+                    t2.parent = z;
+                }
+                if ((t1 !== null && (typeof t1 !== "object" || ρσ_not_equals(t1, null)))) {
+                    t1.parent = y;
+                }
+                y.rightchild = t1;
+                x.leftchild = y;
+                x.rightchild = z;
+            } else {
+                z.rightchild = t1;
+                if ((t1 !== null && (typeof t1 !== "object" || ρσ_not_equals(t1, null)))) {
+                    t1.parent = z;
+                }
+                y.leftchild = t2;
+                if ((t2 !== null && (typeof t2 !== "object" || ρσ_not_equals(t2, null)))) {
+                    t2.parent = y;
+                }
+                x.leftchild = z;
+                x.rightchild = y;
+            }
+            if ((p !== null && (typeof p !== "object" || ρσ_not_equals(p, null)))) {
+                if ((z === p.leftchild || typeof z === "object" && ρσ_equals(z, p.leftchild))) {
+                    p.leftchild = x;
+                } else {
+                    p.rightchild = x;
+                }
+            } else {
+                self.root = x;
+            }
+            x.parent = p;
+            y.parent = x;
+            z.parent = x;
+            q = ρσ_list_decorate([ x ]);
+            print(z.element, y.element, x.element);
+            self.new_Pos_After_Restructure(q);
+            print(z.element, y.element, x.element);
+        }
+    }
+};
+if (!trinode_restructure.__argnames__) Object.defineProperties(trinode_restructure, {
+    __argnames__ : {value: ["self", "u"]},
+    __module__ : {value: "__main__"}
+});
+
+
+function del_Pos_Before_Restructure(self, q) {
+    var q1, w, i;
+    q1 = ρσ_list_decorate([]);
+    if (len(q) > 0) {
+        var ρσ_Iter0 = q;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            i = ρσ_Index0;
+            ρσ_delitem(self.posnode, int(i.currobj.pos.x));
+            if ((i.currobj !== null && (typeof i.currobj !== "object" || ρσ_not_equals(i.currobj, null)))) {
+                i.currobj.visible = false;
+            }
+            if ((i.arrparent !== null && (typeof i.arrparent !== "object" || ρσ_not_equals(i.arrparent, null)))) {
+                i.arrparent.visible = false;
+            }
+            if ((i.textobj !== null && (typeof i.textobj !== "object" || ρσ_not_equals(i.textobj, null)))) {
+                i.textobj.visible = false;
+            }
+            w = self.getChildren(i);
+            var ρσ_Iter1 = w;
+            ρσ_Iter1 = ((typeof ρσ_Iter1[Symbol.iterator] === "function") ? (ρσ_Iter1 instanceof Map ? ρσ_Iter1.keys() : ρσ_Iter1) : Object.keys(ρσ_Iter1));
+            for (var ρσ_Index1 of ρσ_Iter1) {
+                i = ρσ_Index1;
+                q1.append(i);
+            }
+        }
+        self.del_Pos_Before_Restructure(q1);
+    }
+};
+if (!del_Pos_Before_Restructure.__argnames__) Object.defineProperties(del_Pos_Before_Restructure, {
+    __argnames__ : {value: ["self", "q"]},
+    __module__ : {value: "__main__"}
+});
+
+function new_Pos_After_Restructure(self, q) {
+    var q1, v, vect, s, ln, vx, vy, a, w, i, u;
+    q1 = ρσ_list_decorate([]);
+    if (len(q) > 0) {
+        var ρσ_Iter0 = q;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            u = ρσ_Index0;
+            v = u.parent;
+            if ((v === null || typeof v === "object" && ρσ_equals(v, null))) {
+                vect = vector(0, 0, 0);
+                s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+                ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, opacity: 0, box: false})]);
+                u.currobj = s;
+                u.textobj = ln;
+            } else {
+                if ((u === v.rightchild || typeof u === "object" && ρσ_equals(u, v.rightchild))) {
+                    vx = int(v.currobj.pos.x) + 1;
+                    vy = int(v.currobj.pos.y) - 1;
+                    vect = vector(vx, vy, 0);
+                    s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+                    ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, opacity: 0, box: false})]);
+                    a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect - v.currobj.pos, shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: color.red})]);
+                    u.currobj = s;
+                    u.arrparent = a;
+                    u.textobj = ln;
+                } else {
+                    vx = int(v.currobj.pos.x) - 1;
+                    vy = int(v.currobj.pos.y) - 1;
+                    vect = vector(vx, vy, 0);
+                    s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+                    ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, opacity: 0, box: false})]);
+                    a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect - v.currobj.pos, shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: color.red})]);
+                    u.currobj = s;
+                    u.arrparent = a;
+                    u.textobj = ln;
+                }
+            }
+            if (ρσ_in(int(u.currobj.pos.x), self.posnode.keys())) {
+                self.clashHandle((ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)], u.element);
+                (ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)] = u;
+            } else {
+                (ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)] = u;
+            }
+            scene.visible = true;
+            w = self.getChildren(u);
+            var ρσ_Iter1 = w;
+            ρσ_Iter1 = ((typeof ρσ_Iter1[Symbol.iterator] === "function") ? (ρσ_Iter1 instanceof Map ? ρσ_Iter1.keys() : ρσ_Iter1) : Object.keys(ρσ_Iter1));
+            for (var ρσ_Index1 of ρσ_Iter1) {
+                i = ρσ_Index1;
+                q1.append(i);
+            }
+        }
+        self.new_Pos_After_Restructure(q1);
+    }
+};
+if (!new_Pos_After_Restructure.__argnames__) Object.defineProperties(new_Pos_After_Restructure, {
+    __argnames__ : {value: ["self", "q"]},
+    __module__ : {value: "__main__"}
+});
+
+
+function reposition(self, x, nposnode) {
+    var clashlist, left, v, right;
+    clashlist = {};
+    if ((x.leftchild !== null && (typeof x.leftchild !== "object" || ρσ_not_equals(x.leftchild, null)))) {
+        left = x.leftchild;
+        v = x.currobj.pos + vector(-1, 0, 0);
+        if ((nposnode[ρσ_bound_index(v.x, nposnode)] === null || typeof nposnode[ρσ_bound_index(v.x, nposnode)] === "object" && ρσ_equals(nposnode[ρσ_bound_index(v.x, nposnode)], null))) {
+            left.currobj.pos = v;
+            left.arrow = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: x.currobj.vector, axis: left.currobj.pos, color: color.red})]);
+            left.textobj.pos = v;
+            nposnode[ρσ_bound_index(v.x, nposnode)] = left;
+            (ρσ_expr_temp = self.posnode)[ρσ_bound_index(v.x, ρσ_expr_temp)] = left;
+        } else {
+            self.clashcheck(nposnode[ρσ_bound_index(v.x, nposnode)], x.leftchild.element, nposnode);
+        }
+    }
+    if ((x.rightchid !== null && (typeof x.rightchid !== "object" || ρσ_not_equals(x.rightchid, null)))) {
+        right = x.rightchild;
+        v = x.currobj.pos + vector(1, 0, 0);
+        if ((nposnode[ρσ_bound_index(v.x, nposnode)] === null || typeof nposnode[ρσ_bound_index(v.x, nposnode)] === "object" && ρσ_equals(nposnode[ρσ_bound_index(v.x, nposnode)], null))) {
+            right.currobj.pos = v;
+            right.arrow = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: x.currobj.vector, axis: left.currobj.pos, color: color.red})]);
+            right.textobj.pos = v;
+            nposnode[ρσ_bound_index(v.x, nposnode)] = right;
+            (ρσ_expr_temp = self.posnode)[ρσ_bound_index(v.x, ρσ_expr_temp)] = right;
+        } else {
+            self.clashcheck(nposnode[ρσ_bound_index(v.x, nposnode)], x.leftchild.element, nposnode);
+        }
+    }
+};
+if (!reposition.__argnames__) Object.defineProperties(reposition, {
+    __argnames__ : {value: ["self", "x", "nposnode"]},
+    __module__ : {value: "__main__"}
+});
+
+function insertElement(self, e) {
+    var v, u;
+    v = self.root;
+    u = new node;
+    u.element = e;
+    if ((self.root === null || typeof self.root === "object" && ρσ_equals(self.root, null))) {
+        self.root = u;
+    } else {
+        v = self.findInsert(e, self.root);
+        print(v.element);
+        if (e < v.element) {
+            v.leftchild = u;
+        } else {
+            v.rightchild = u;
+        }
+    }
+    u.parent = v;
+    return u;
+};
+if (!insertElement.__argnames__) Object.defineProperties(insertElement, {
+    __argnames__ : {value: ["self", "e"]},
+    __module__ : {value: "__main__"}
+});
+
+function insertElementAVL(self, e) {
+    var u, v, vect, s, ln, vx, vy, a, ρσ_unpack, i;
+    u = self.insertElement(e);
+    v = u.parent;
+    if ((v === null || typeof v === "object" && ρσ_equals(v, null))) {
+        vect = vector(0, 0, 0);
+        s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+        ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, opacity: 0, box: false})]);
+        u.currobj = s;
+        u.textobj = ln;
+    } else {
+        if ((u === v.rightchild || typeof u === "object" && ρσ_equals(u, v.rightchild))) {
+            vx = int(v.currobj.pos.x) + 1;
+            vy = int(v.currobj.pos.y) - 1;
+            vect = vector(vx, vy, 0);
+            s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+            ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, opacity: 0, box: false})]);
+            a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect - v.currobj.pos, shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: color.red})]);
+            u.currobj = s;
+            u.arrparent = a;
+            u.textobj = ln;
+        } else {
+            vx = int(v.currobj.pos.x) - 1;
+            vy = int(v.currobj.pos.y) - 1;
+            vect = vector(vx, vy, 0);
+            s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: color.green})]);
+            ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, opacity: 0, box: false})]);
+            a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect - v.currobj.pos, shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: color.red})]);
+            u.currobj = s;
+            u.arrparent = a;
+            u.textobj = ln;
+        }
+    }
+    self.pointer.pos = u.currobj.pos;
+    if (ρσ_in(int(u.currobj.pos.x), self.posnode.keys())) {
+        self.clashHandle((ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)], u.element);
+        (ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)] = u;
+    } else {
+        (ρσ_expr_temp = self.posnode)[ρσ_bound_index(int(u.currobj.pos.x), ρσ_expr_temp)] = u;
+    }
+    self.pointer.pos = u.currobj.pos;
+    sleep(1);
+    self.pointer.color = color.cyan;
+    scene.visible = true;
+    self.trinode_restructure(u);
+    var ρσ_Iter0 = self.posnode.items();
+    ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+    for (var ρσ_Index0 of ρσ_Iter0) {
+        ρσ_unpack = ρσ_Index0;
+        i = ρσ_unpack[0];
+        v = ρσ_unpack[1];
+        print(i, " ", v.element);
+    }
+    self.pointer.pos = u.currobj.pos;
+    return;
+};
+if (!insertElementAVL.__argnames__) Object.defineProperties(insertElementAVL, {
+    __argnames__ : {value: ["self", "e"]},
+    __module__ : {value: "__main__"}
+});
+
+function insertVisual(self, e) {
+    var u;
+    u = self.insertElementAVL(e);
+};
+if (!insertVisual.__argnames__) Object.defineProperties(insertVisual, {
+    __argnames__ : {value: ["self", "e"]},
+    __module__ : {value: "__main__"}
+});
+
+function searchvis(self, k, n) {
+    sleep(1);
+    self.pointer.pos = n.currobj.pos;
+    if ((n.element === k || typeof n.element === "object" && ρσ_equals(n.element, k))) {
+        sleep(1);
+        self.pointer.color = color.yellow;
+        return;
+    } else {
+        if (k > n.element && (n.rightchild !== null && (typeof n.rightchild !== "object" || ρσ_not_equals(n.rightchild, null)))) {
+            self.searchvis(k, n.rightchild);
+        }
+        if (k < n.element && (n.leftchild !== null && (typeof n.leftchild !== "object" || ρσ_not_equals(n.leftchild, null)))) {
+            self.searchvis(k, n.leftchild);
+        }
+    }
+};
+if (!searchvis.__argnames__) Object.defineProperties(searchvis, {
+    __argnames__ : {value: ["self", "k", "n"]},
+    __module__ : {value: "__main__"}
+});
+
+function clashHandle(self, fn, cnele) {
+    var q;
+    q = ρσ_list_decorate([]);
+    if (cnele > fn.element) {
+        q.append(fn.rightchild);
+        self.clashLevelOrderTraverse(q, 1);
+    } else {
+        q.append(fn.leftchild);
+        self.clashLevelOrderTraverse(q, -1);
+    }
+};
+if (!clashHandle.__argnames__) Object.defineProperties(clashHandle, {
+    __argnames__ : {value: ["self", "fn", "cnele"]},
+    __module__ : {value: "__main__"}
+});
+
