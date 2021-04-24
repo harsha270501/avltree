@@ -57,17 +57,23 @@ class BinarySearchTree:
     # function to find the position where the given element has to be deleted
 
     def findDelete(self, e, curnode):
+        sleep(1)
         if curnode != None:
 
             # print(curnode.element)
-
+            self.pointer.pos=curnode.currobj.pos
             if e < curnode.element:
                 return self.findDelete(e, curnode.leftchild)
-            elif e == curnode.element:
+
+            elif e==curnode.element:
+                sleep(1)
+                self.pointer.color=color.yellow
                 return curnode
             else:
-                return self.findDelete(e, curnode.rightchild)
-
+               return self.findDelete(e, curnode.rightchild)
+        return None
+        
+        
     # checks if the height is balanced
 
     def balanceCheck(self, w):
@@ -648,6 +654,10 @@ class BinarySearchTree:
 
     def deleteElement(self, e):
         t = self.findDelete(e, self.root)
+        #sleep(1)
+        print("Deleting ele",e)
+        self.pointer.pos = vector(0,0,0)
+        self.pointer.color=color.red
         l = t.leftchild
         r = t.rightchild
         p = t.parent
@@ -658,37 +668,41 @@ class BinarySearchTree:
             child += 1
         if self.isExternal(t):
             if p == None:
-                self.root = t
+                self.root = None
+                
             else:
                 if t == p.leftchild:
                     p.leftchild = None
                 else:
                     p.rightchild = None
+            x=int(t.currobj.pos.x)
+            del self.posnode[x]
+            t.currobj.visible=False
+            t.arrparent.visible=False
+            t.textobj.visible=False
+            del t
         elif child == 1:
-            if l != None:
-                if p == None:
-                    self.root = l
-                else:
-                    if t == p.leftchild:
-                        p.leftchild = l
-                    else:
-                        p.rightchild = l
-            elif r != None:
-                if p == None:
-                    self.root = r
-                else:
-                    if t == p.leftchild:
-                        p.leftchild = r
-                    else:
-                        p.rightchild = r
+            if(l!=None):
+                tempele=l.element
+            else:
+                tempele=r.element
+            print("Case 1 children")
+            print("tempele",tempele)
+
+            self.deleteElement(tempele)
+            
+            t.element = tempele
+            t.textobj.text=str(tempele)
         else:
             temp = self.returnNextInorder(t.rightchild)
             tempele = temp.element
-
-            # print("tempele",tempele)
+            print("Case 2 children")
+            print("tempele",tempele)
 
             self.deleteElement(tempele)
+            
             t.element = tempele
+            t.textobj.text=str(tempele)
         return
 
 
@@ -998,7 +1012,7 @@ def testmain():
     
     while ch == 'y':
         rate(1)
-        op=int(input("Enter option : 1.Insertion 2. Searching 3.Preorder 4.Postorder 5.Inorder 6.LevelOrder"))
+        op=int(input("Enter option : 1.Insertion 2. Searching 3.Deletion 4.Preorder 5.Postorder 6.Inorder 7.LevelOrder"))
         if(op==1):
             print('Visualisation - BST tree insertion')
             bst2.pointer.pos = vector(0,0,0)
@@ -1019,6 +1033,20 @@ def testmain():
                 else:
                     print("Element found")
         elif(op==3):
+            print('Visualisation - BST tree Deletion')
+            i = int(input('Enter element to be deleted: '))
+            if(bst2.root==None):
+                print("Tree does not exist")
+            else:
+                bst2.pointer.pos = vector(0,0,0)
+                bst2.pointer.color=color.red
+                bst2.deleteElementAVL(i)
+                if(bst2.pointer.color==color.red):
+                    print("Element",i,"does not exist in tree")
+                else:
+                    print("Element deleted")
+            
+        elif(op==4):
             print('Visualisation - Preorder')
             if(bst2.root==None):
                 print("Tree does not exist")
@@ -1026,7 +1054,7 @@ def testmain():
                 bst2.pointer.pos = vector(0,0,0)
                 bst2.pointer.color=color.yellow
                 bst2.preordervis(bst2.root)
-        elif(op==4):
+        elif(op==5):
             print('Visualisation - Postorder')
             if(bst2.root==None):
                 print("Tree does not exist")
@@ -1034,7 +1062,7 @@ def testmain():
                 bst2.pointer.pos = vector(0,0,0)
                 bst2.pointer.color=color.yellow
                 bst2.postordervis(bst2.root)
-        elif(op==5):
+        elif(op==6):
             print('Visualisation - Inorder')
             if(bst2.root==None):
                 print("Tree does not exist")
@@ -1042,7 +1070,7 @@ def testmain():
                 bst2.pointer.pos = vector(0,0,0)
                 bst2.pointer.color=color.yellow
                 bst2.inordervis(bst2.root)
-        elif(op==6):
+        elif(op==7):
             print('Visualisation - Levelorder')
             if(bst2.root==None):
                 print("Tree does not exist")
