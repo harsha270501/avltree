@@ -33,6 +33,16 @@ class BinarySearchTree:
         self.fcn = 0
         self.pointer = None
     # function to find the position where the new element has to be inserted
+    def findElement(self, e, curnode):
+        
+        if curnode != None:
+            if e < curnode.element:
+                return self.findElement(e, curnode.leftchild)
+            elif e == curnode.element:
+                return curnode
+            else:
+                return self.findElement(e, curnode.rightchild)
+        return None
 
     def findInsert(self, e, curnode):
         sleep(1)
@@ -415,7 +425,7 @@ class BinarySearchTree:
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
-        self.pointer.pos=u.currobj.pos
+        #self.pointer.pos=u.currobj.pos
         if int(u.currobj.pos.x) in self.posnode.keys():
             self.clashHandle(self.posnode[int(u.currobj.pos.x)],u.element)
             self.posnode[int(u.currobj.pos.x)] = u
@@ -897,7 +907,7 @@ class BinarySearchTree:
         if v == None:
             return 0
 
-        u = self.findDelete(v.element, self.root)
+        u = self.findElement(v.element, self.root)
         if u == None:
             return 0
         if u != None:
@@ -1082,8 +1092,10 @@ def testmain():
             print("Invalid option")
 
 #       scene.waitfor('click')
-        ch = input('Do you want to continue?(y/n): ')
 
+        ch = input('Do you want to continue?(y/n): ')
+        sleep(1)
+        bst2.pointer.visible=True
 
 def main():
     testmain()
