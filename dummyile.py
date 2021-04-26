@@ -88,11 +88,9 @@ class BinarySearchTree:
 
     def balanceCheck(self, w):
         if w != None:
-            h = self.findHeightIter(w.leftchild) \
-                - self.findHeightIter(w.rightchild)
-
-         #   print(w.element,h)
-
+            lh=self.findHeightIter(w.leftchild)
+            rh=self.findHeightIter(w.rightchild)
+            h=lh-rh
             if h < -1 or h > 1:
                 return w
             else:
@@ -102,23 +100,19 @@ class BinarySearchTree:
     # restructuring after delete - done recursively
 
     def restructureDel(self, u):
-
         if u != None:
             p1 = u.parent
-        if u == None:
-            p1 = None
-        self.trinode_restructure(u)
-        if p1 != None:
-            self.restructureDel(p1)
+            self.trinode_restructure(u)
+            if p1 != None:
+                self.restructureDel(p1)
 
+        
     # restructure to balance tree
 
     def trinode_restructure(self, u):
-        z = self.balanceCheck(u)
-        
+        z = self.balanceCheck(u)   
         if z != None:
             print("Imbalance at: ",z.element)
-            print(self.posnode)
             q=[z]
             self.del_Pos_Before_Restructure(q)
             #print(self.posnode)
@@ -223,6 +217,8 @@ class BinarySearchTree:
                 print(z.element,y.element,x.element)
                 self.new_Pos_After_Restructure(q)
                 print(z.element,y.element,x.element)
+        else:
+            print("Balanced")
     
     def del_Pos_Before_Restructure(self,q):
         q1=[]
@@ -317,43 +313,7 @@ class BinarySearchTree:
 
 
                 
-    def reposition(self, x, nposnode):
-        clashlist = {}
-
-        if x.leftchild != None:
-            left = x.leftchild
-            v = x.currobj.pos + vector(-1, 0, 0)
-
-            if nposnode[v.x] == None:
-                left.currobj.pos = v
-                left.arrow = arrow(pos=x.currobj.vector,
-                                   axis=left.currobj.pos,
-                                   color=color.red)
-                left.textobj.pos = v
-                nposnode[v.x] = left
-                self.posnode[v.x] = left
-            else:
-
-                self.clashcheck(nposnode[v.x], x.leftchild.element,
-                                nposnode)
-
-        if x.rightchid != None:
-            right = x.rightchild
-            v = x.currobj.pos + vector(1, 0, 0)
-
-            if nposnode[v.x] == None:
-                right.currobj.pos = v
-                right.arrow = arrow(pos=x.currobj.vector,
-                                    axis=left.currobj.pos,
-                                    color=color.red)
-                right.textobj.pos = v
-                nposnode[v.x] = right
-                self.posnode[v.x] = right
-            else:
-
-                self.clashcheck(nposnode[v.x], x.leftchild.element,
-                                nposnode)
-
+    
     # Basic BST insertion
 
     def insertElement(self, e):
@@ -645,6 +605,7 @@ class BinarySearchTree:
             t.currobj.visible=False
             t.arrparent.visible=False
             t.textobj.visible=False
+            self.restructureDel(t.parent)
             del t
         elif child == 1:
             if(l!=None):
@@ -680,10 +641,6 @@ class BinarySearchTree:
         # print("Immediate after delete")
         # self.inorderTraverse(self.root)
         # print()
-
-        w = t
-
-        self.restructureDel(w)
 
         return
 
@@ -847,8 +804,10 @@ class BinarySearchTree:
     def findHeightIter(self, v):
         if v == None:
             return 0
+        #print("Height",v.element,end=" ")
         if v != None:
             if self.isExternal(v):
+                #print(1)
                 return 1
             else:
                 h = 0
@@ -856,6 +815,7 @@ class BinarySearchTree:
                     h = max(h, self.findHeightIter(v.leftchild))
                 if v.rightchild != None:
                     h = max(h, self.findHeightIter(v.rightchild))
+                #print(h)
                 return 1 + h
 
     def findHeight(self, v):
