@@ -130,7 +130,6 @@ class BinarySearchTree:
 
             h1 = self.findHeight(y.leftchild)
             h2 = self.findHeight(y.rightchild)
-
             if h1 > h2:
                 x = y.leftchild
             else:

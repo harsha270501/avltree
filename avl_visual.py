@@ -213,11 +213,23 @@ class BinarySearchTree:
                 self.new_Pos_After_Restructure(q)
                 print(z.element, y.element, x.element)
 
+        else:
+            print(int(u.currobj.pos.x))
+            print(self.posnode.items())
+            if int(u.currobj.pos.x) in self.posnode:
+                self.clashHandle(u)
+                self.posnode[int(u.currobj.pos.x)] = u
+            else:
+                self.posnode[int(u.currobj.pos.x)] = u
+
     def del_Pos_Before_Restructure(self, q):
         q1 = []
         if(len(q) > 0):
             for i in q:
-                del self.posnode[int(i.currobj.pos.x)]
+                print(i.element)
+                if (int(i.currobj.pos.x) in self.posnode) and i.element == self.posnode[int(i.currobj.pos.x)].element:
+                    print("DE", self.posnode[int(i.currobj.pos.x)].element)
+                    del self.posnode[int(i.currobj.pos.x)]
                 if(i.currobj != None):
                     i.currobj.visible = False
                     #o=i.currobj
@@ -237,8 +249,8 @@ class BinarySearchTree:
                     #del o
 
                 w = self.getChildren(i)
-                for i in w:
-                    q1.append(i)
+                for j in w:
+                    q1.append(j)
             self.del_Pos_Before_Restructure(q1)
 
     def new_Pos_After_Restructure(self, q):
@@ -333,7 +345,7 @@ class BinarySearchTree:
 
     # ADT - insertion in AVL
     def insertElementAVL(self, e):
-
+        
         u = self.insertElement(e)
         v = u.parent
         if v == None:
@@ -349,7 +361,7 @@ class BinarySearchTree:
                 vy = int(v.currobj.pos.y) - 1
                 vect = vector(vx, vy, 0)
                 s = sphere(pos=vect, radius=0.25, color=color.green)
-                ln = label(pos=vect, text=str(e), color=color.white, height=18,
+                ln = label(pos=vect, text=str(e), color=color.white, height=18, 
                            opacity=0, box=False)
                 a = arrow(
                     pos=v.currobj.pos,
@@ -358,7 +370,7 @@ class BinarySearchTree:
                     headwidth=u.arrHeadWidth,
                     headlength=u.arrHeadLength,
                     color=color.red,
-                )
+                    )
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
@@ -376,29 +388,26 @@ class BinarySearchTree:
                     headwidth=u.arrHeadWidth,
                     headlength=u.arrHeadLength,
                     color=color.red,
-                )
+                    )
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
-        self.pointer.pos = u.currobj.pos
+        #self.pointer.pos=u.currobj.pos
         # if int(u.currobj.pos.x) in self.posnode.keys():
-        #     self.clashHandle(self.posnode[int(u.currobj.pos.x)], u.element)
+        #     self.clashHandle(u)
         #     self.posnode[int(u.currobj.pos.x)] = u
-        #new clash handle
-        if int(u.currobj.pos.x) in self.posnode:
-            self.clashHandle(u)
-            self.posnode[int(u.currobj.pos.x)] = u
-        else:
-            self.posnode[int(u.currobj.pos.x)] = u
-        self.pointer.pos = u.currobj.pos
-        sleep(1)
-        self.pointer.color = color.cyan
-        scene.visible = True    #why here?
 
+        # else:
+        #     self.posnode[int(u.currobj.pos.x)] = u
+        self.pointer.pos=u.currobj.pos
+        sleep(1)
+        self.pointer.color=color.cyan
+        scene.visible = True
+        
         self.trinode_restructure(u)
-        for (i, v) in self.posnode.items():
-            print(i, " ", v.element)
-        self.pointer.pos = u.currobj.pos
+        for (i,v) in self.posnode.items():
+                print(i," ",v.element)
+        self.pointer.pos=u.currobj.pos
         return
 
     # BST insertion - visualisation
@@ -487,26 +496,27 @@ class BinarySearchTree:
 
         for i in nodepos:
             if((cx == -1 and i <= node.currobj.pos.x) or (cx == 1 and i >= node.currobj.pos.x)):
-                if((self.posnode[i] != self.root) and ((i!=node.currobj.pos.x) or ((cx == -1 and node.parent.rightchild != node) or (cx == 1 and node.parent.leftchild != node)))):
-                    temp = self.posnode[i]
-                    del self.posnode[i]
+                if(node.parent!=None):
+                    if((self.posnode[i] != self.root) and ((i!=node.currobj.pos.x) or ((cx == -1 and node.parent.rightchild != node) or (cx == 1 and node.parent.leftchild != node)))):
+                        temp = self.posnode[i]
+                        del self.posnode[i]
 
-                    temp.currobj.pos.x += cx
-                    temp.arrparent.pos = temp.parent.currobj.pos
-                    temp.arrparent.axis = temp.currobj.pos - \
-                        temp.parent.currobj.pos
-                    temp.textobj.pos = temp.currobj.pos
-                    if(temp.leftchild != None):
-                        temp.leftchild.arrparent.pos = temp.currobj.pos
-                        temp.leftchild.arrparent.axis = temp.leftchild.currobj.pos - \
-                            temp.currobj.pos
+                        temp.currobj.pos.x += cx
+                        temp.arrparent.pos = temp.parent.currobj.pos
+                        temp.arrparent.axis = temp.currobj.pos - \
+                            temp.parent.currobj.pos
+                        temp.textobj.pos = temp.currobj.pos
+                        if(temp.leftchild != None):
+                            temp.leftchild.arrparent.pos = temp.currobj.pos
+                            temp.leftchild.arrparent.axis = temp.leftchild.currobj.pos - \
+                                temp.currobj.pos
 
-                    if(temp.rightchild != None):
-                        temp.rightchild.arrparent.pos = temp.currobj.pos
-                        temp.rightchild.arrparent.axis = temp.rightchild.currobj.pos - \
-                            temp.currobj.pos
+                        if(temp.rightchild != None):
+                            temp.rightchild.arrparent.pos = temp.currobj.pos
+                            temp.rightchild.arrparent.axis = temp.rightchild.currobj.pos - \
+                                temp.currobj.pos
 
-                    changed_posnode[i+cx] = temp
+                        changed_posnode[i+cx] = temp
 
         if((cx == -1 and node.parent.rightchild==node) or (cx == 1 and node.parent.leftchild==node)):
             node.currobj.pos.x += cx
