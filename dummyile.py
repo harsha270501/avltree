@@ -70,7 +70,7 @@ class BinarySearchTree:
         sleep(1)
         if curnode != None:
 
-            # print(curnode.element)
+
             self.pointer.pos=curnode.currobj.pos
             if e < curnode.element:
                 return self.findDelete(e, curnode.leftchild)
@@ -107,15 +107,15 @@ class BinarySearchTree:
                 self.restructureDel(p1)
 
         
-    # restructure to balance tree
-
     def trinode_restructure(self, u):
-        z = self.balanceCheck(u)   
+        z = self.balanceCheck(u)
+
         if z != None:
-            print("Imbalance at: ",z.element)
-            q=[z]
+            print("Imbalance at: ", z.element)
+            
+            q = [z]
             self.del_Pos_Before_Restructure(q)
-            #print(self.posnode)
+            print("After del_pos",self.posnode.keys())
             if z.leftchild == None:
                 h1 = 0
             else:
@@ -129,19 +129,13 @@ class BinarySearchTree:
             else:
                 y = z.rightchild
 
-            # print(z.element,z.leftchild.element,z.rightchild.element,z.parent.element)
-
             h1 = self.findHeight(y.leftchild)
             h2 = self.findHeight(y.rightchild)
-
-            # print(y.element,y.leftchild.element,y.rightchild.element,y.parent.element)
-
+            
             if h1 > h2:
                 x = y.leftchild
             else:
                 x = y.rightchild
-
-            # print(x.element,x.leftchild.element,x.rightchild.element,x.parent.element)
 
             sl = []
             sl.append(x.element)
@@ -160,14 +154,14 @@ class BinarySearchTree:
                     t2 = y.rightchild
                     y.rightchild = z
                     z.leftchild = t2
-                    if(t2!=None):
-                        t2.parent=z
+                    if(t2 != None):
+                        t2.parent = z
                 else:
                     t2 = y.leftchild
                     y.leftchild = z
                     z.rightchild = t2
-                    if(t2!=None):
-                        t2.parent=z
+                    if(t2 != None):
+                        t2.parent = z
                 if p != None:
                     if z == p.leftchild:
                         p.leftchild = y
@@ -177,30 +171,30 @@ class BinarySearchTree:
                     self.root = y
                 y.parent = p
                 z.parent = y
-                q=[y]
-                print(z.element,y.element,x.element)
+                q = [y]
+                print(z.element, y.element, x.element)
                 self.new_Pos_After_Restructure(q)
-                print(z.element,y.element,x.element)
+                print(z.element, y.element, x.element)
             elif b == x:
                 p = z.parent
                 t1 = x.leftchild
                 t2 = x.rightchild
                 if y == z.leftchild and x == y.rightchild:
                     z.leftchild = t2
-                    if(t2!=None):
-                        t2.parent=z
-                    if(t1!=None):
-                        t1.parent=y
+                    if(t2 != None):
+                        t2.parent = z
+                    if(t1 != None):
+                        t1.parent = y
                     y.rightchild = t1
                     x.leftchild = y
                     x.rightchild = z
                 else:
                     z.rightchild = t1
-                    if(t1!=None):
-                        t1.parent=z
+                    if(t1 != None):
+                        t1.parent = z
                     y.leftchild = t2
-                    if(t2!=None):
-                        t2.parent=y
+                    if(t2 != None):
+                        t2.parent = y
                     x.leftchild = z
                     x.rightchild = y
                 if p != None:
@@ -213,39 +207,49 @@ class BinarySearchTree:
                 x.parent = p
                 y.parent = x
                 z.parent = x
-                q=[x]
-                print(z.element,y.element,x.element)
+                q = [x]
+                print(z.element, y.element, x.element)
                 self.new_Pos_After_Restructure(q)
-                print(z.element,y.element,x.element)
+                print("After new_pos",self.posnode.keys())
+            
+                print(z.element, y.element, x.element)
+
         else:
-            print("Balanced")
-    
-    def del_Pos_Before_Restructure(self,q):
-        q1=[]
-        if(len(q)>0):
+            if ((int(u.currobj.pos.x) in self.posnode) and (u.element != self.posnode[int(u.currobj.pos.x)].element)):
+                self.clashHandle(u)
+                self.posnode[int(u.currobj.pos.x)] = u
+            else:
+                self.posnode[int(u.currobj.pos.x)] = u
+
+    def del_Pos_Before_Restructure(self, q):
+        q1 = []
+        if(len(q) > 0):
             for i in q:
-                del self.posnode[int(i.currobj.pos.x)]
-                if(i.currobj!=None):
-                    i.currobj.visible=False
+                print(i.element)
+                if ((int(i.currobj.pos.x) in self.posnode) and (i.element == self.posnode[int(i.currobj.pos.x)].element)):
+                    print("DE", self.posnode[int(i.currobj.pos.x)].element)
+                    del self.posnode[int(i.currobj.pos.x)]
+                if(i.currobj != None):
+                    i.currobj.visible = False
                     #o=i.currobj
                     #i.currobj=None
                     #del o
 
-                if(i.arrparent!=None):
-                    i.arrparent.visible=False
+                if(i.arrparent != None):
+                    i.arrparent.visible = False
                     #o=i.arrparent
                     #i.arrparent=None
                     #del o
 
-                if(i.textobj!=None):
-                    i.textobj.visible=False
+                if(i.textobj != None):
+                    i.textobj.visible = False
                     #o=i.textobj
                     #i.textobj=None
                     #del o
 
-                w=self.getChildren(i)
-                for i in w:
-                    q1.append(i)
+                w = self.getChildren(i)
+                for j in w:
+                    q1.append(j)
             self.del_Pos_Before_Restructure(q1)
 
     def new_Pos_After_Restructure(self,q):
@@ -298,7 +302,6 @@ class BinarySearchTree:
                         u.textobj = ln
                 
                 if int(u.currobj.pos.x) in self.posnode.keys():
-                    #print("clash")
                     self.clashHandle(u)
                     self.posnode[int(u.currobj.pos.x)] = u
                 else:
@@ -306,8 +309,8 @@ class BinarySearchTree:
                 
                 scene.visible = True
                 w=self.getChildren(u)
-                for i in w:
-                    q1.append(i)
+                for j in w:
+                    q1.append(j)
             self.new_Pos_After_Restructure(q1)
     
 
@@ -386,18 +389,19 @@ class BinarySearchTree:
                 u.arrparent = a
                 u.textobj = ln
         #self.pointer.pos=u.currobj.pos
-        if int(u.currobj.pos.x) in self.posnode.keys():
-            self.clashHandle(u)
-            self.posnode[int(u.currobj.pos.x)] = u
+        # if int(u.currobj.pos.x) in self.posnode.keys():
+        #     self.clashHandle(u)
+        #     self.posnode[int(u.currobj.pos.x)] = u
 
-        else:
-            self.posnode[int(u.currobj.pos.x)] = u
+        # else:
+        #     self.posnode[int(u.currobj.pos.x)] = u
         self.pointer.pos=u.currobj.pos
         sleep(1)
         self.pointer.color=color.cyan
         scene.visible = True
         
         self.trinode_restructure(u)
+        print("After complete restructuring and clash handle")
         for (i,v) in self.posnode.items():
                 print(i," ",v.element)
         self.pointer.pos=u.currobj.pos
@@ -412,12 +416,9 @@ class BinarySearchTree:
     def searchvis(self,k,n):
         sleep(1)
         self.pointer.pos=n.currobj.pos
-        #print(n.element)
-        #print(n.element==k)
         if n.element==k:
             sleep(1)
             self.pointer.color=color.yellow
-            #print("is it getting reflected?")
             return 
         else:
             if k>n.element and n.rightchild!=None:
@@ -491,7 +492,7 @@ class BinarySearchTree:
 
         for i in nodepos:
             if((cx == -1 and i <= node.currobj.pos.x) or (cx == 1 and i >= node.currobj.pos.x)):
-                if((self.posnode[i] != self.root) and ((i!=node.currobj.pos.x) or ((cx == -1 and node.parent.rightchild != node) or (cx == 1 and node.parent.leftchild != node)))):
+                if((self.posnode[i] != self.root) and ((i!=node.currobj.pos.x) or ((cx == -1 and node.parent!=None and node.parent.rightchild != node) or (cx == 1 and node.parent!=None and node.parent.leftchild != node)))):
                     temp = self.posnode[i]
                     del self.posnode[i]
 
@@ -512,7 +513,7 @@ class BinarySearchTree:
 
                     changed_posnode[i+cx] = temp
 
-        if((cx == -1 and node.parent.rightchild==node) or (cx == 1 and node.parent.leftchild==node)):
+        if((cx == -1 and node.parent!=None and node.parent.rightchild==node) or (cx == 1 and node.parent!=None and node.parent.leftchild==node)):
             node.currobj.pos.x += cx
             node.arrparent.pos = node.parent.currobj.pos
             node.arrparent.axis = node.currobj.pos - node.parent.currobj.pos
@@ -527,7 +528,7 @@ class BinarySearchTree:
 #    def clashInorderTraverse(self, currnode, cx):
 #        if cx == -1:                        #LPR Left subtree extension
 #            if currnode != None:
-#                if currnode.leftchild != None:
+#                if currnode.leftchild != None:22
 #                    self.clashInorderTraverse(currnode.leftchild, cx)
 #
 #                del self.posnode[currnode.currobj.pos.x]
@@ -601,11 +602,13 @@ class BinarySearchTree:
                 else:
                     p.rightchild = None
             x=int(t.currobj.pos.x)
-            del self.posnode[x]
             t.currobj.visible=False
             t.arrparent.visible=False
             t.textobj.visible=False
+            del self.posnode[x]
+            print("after deletion",self.posnode.keys())
             self.restructureDel(t.parent)
+            print("after restructure",self.posnode.keys())
             del t
         elif child == 1:
             if(l!=None):
@@ -631,18 +634,58 @@ class BinarySearchTree:
             t.textobj.text=str(tempele)
         return
 
+    def repositionAfterDel(self):
+        
+        nodepos=[]
+        for i in self.posnode:
+            nodepos.append(i)
+        
+        nodepos.sort()
+        for i in range(1,len(nodepos)):
+            if(nodepos[i]-nodepos[i-1]!=1):
+                if(nodepos[i-1]<0):
+                    for j in range(i-1,-1,-1):
+                        o=self.posnode[nodepos[j]]
+                        del self.posnode[int(o.currobj.pos.x)]
+                        o.currobj.pos.x = int(o.currobj.pos.x)+1
+                        if(o.parent!=None):
+                            o.arrparent.pos =o.parent.currobj.pos
+                            o.arrparent.axis = o.currobj.pos - o.parent.currobj.pos
+                        o.textobj.pos = o.currobj.pos
+                        self.posnode[int(o.currobj.pos.x)] = o
+                        if(o.rightchild!=None):
+                            rc=o.rightchild
+                            rc.arrparent.axis = rc.currobj.pos - o.currobj.pos
+                            o.rightchild=rc
+                    
+
+                elif(nodepos[i]>0):
+                    for j in range(i,len(nodepos)):
+                        o=self.posnode[nodepos[j]]
+                        del self.posnode[int(o.currobj.pos.x)]
+                        o.currobj.pos.x = int(o.currobj.pos.x)-1
+                        if(o.parent!=None):
+                            o.arrparent.pos =o.parent.currobj.pos
+                            o.arrparent.axis = o.currobj.pos - o.parent.currobj.pos
+                        o.textobj.pos = o.currobj.pos
+                        self.posnode[int(o.currobj.pos.x)] = o
+                        if(o.leftchild!=None):
+                            lc=o.leftchild
+                            lc.arrparent.axis = lc.currobj.pos - o.currobj.pos
+                            o.leftchild=lc
+                break
+
 
     # AVL- delete element
 
     def deleteElementAVL(self, e):
         t = self.findDelete(e, self.root)
-        self.deleteElement(e)
-
-        # print("Immediate after delete")
-        # self.inorderTraverse(self.root)
-        # print()
-
-        return
+        if(t!=None):
+            self.deleteElement(e)
+            self.repositionAfterDel()
+            return 1
+        else:
+            return 0
 
     # AVL - adt create
 
@@ -657,9 +700,6 @@ class BinarySearchTree:
         rr = items[mid + 1:]
         u = node()
         u.element = items[mid]
-
-        # print(mid,u.element)
-
         if l > 1:
             lchild = self.adtCreate(lr)
             rchild = self.adtCreate(rr)
@@ -687,9 +727,6 @@ class BinarySearchTree:
         lr = items[:mid]
         rr = items[mid + 1:]
         u = items[mid]
-
-        # print("element:",u.element,end="-")
-
         if l > 1:
             lchild = self.createTree(lr)
             rchild = self.createTree(rr)
@@ -698,18 +735,11 @@ class BinarySearchTree:
             if lchild != None or rchild != None:
                 y = u.currobj.pos.y
                 if lchild != None:
-
-                    # print("left:",lchild.element,end=",")
-
                     lchild.parent = u
                     if lchild.currobj.pos.y > y:
                         y = lchild.currobj.pos.y
 
                 if rchild != None:
-
-                    # print("right:",rchild.element)
-
-#                     print ()
                     rchild.parent = u
                     if rchild.currobj.pos.y > y:
                         y = rchild.currobj.pos.y
@@ -742,14 +772,6 @@ class BinarySearchTree:
 
             u.leftchild = None
             u.rightchild = None
-#         print (
-#             'Changed position',
-#             u.element,
-#             ' ',
-#             u.currobj.pos.x,
-#             ' ',
-#             u.currobj.pos.y,
-#             )
         self.root = u
         return u
 
@@ -804,10 +826,8 @@ class BinarySearchTree:
     def findHeightIter(self, v):
         if v == None:
             return 0
-        #print("Height",v.element,end=" ")
         if v != None:
             if self.isExternal(v):
-                #print(1)
                 return 1
             else:
                 h = 0
@@ -815,7 +835,6 @@ class BinarySearchTree:
                     h = max(h, self.findHeightIter(v.leftchild))
                 if v.rightchild != None:
                     h = max(h, self.findHeightIter(v.rightchild))
-                #print(h)
                 return 1 + h
 
     def findHeight(self, v):
@@ -965,11 +984,11 @@ def testmain():
             else:
                 bst2.pointer.pos = vector(0,0,0)
                 bst2.pointer.color=color.red
-                bst2.deleteElementAVL(i)
-                if(bst2.pointer.color==color.red):
-                    print("Element",i,"does not exist in tree")
+                cond=bst2.deleteElementAVL(i)
+                if(cond==1):
+                    print("Element",i,"deleted")
                 else:
-                    print("Element deleted")
+                    print("Element does not exist")
             
         elif(op==4):
             print('Visualisation - Preorder')
