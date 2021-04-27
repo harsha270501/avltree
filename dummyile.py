@@ -107,12 +107,15 @@ class BinarySearchTree:
                 self.restructureDel(p1)
 
         
+    # restructure to balance tree
+
+
     def trinode_restructure(self, u):
         z = self.balanceCheck(u)
 
         if z != None:
             print("Imbalance at: ", z.element)
-            
+            print(self.posnode)
             q = [z]
             self.del_Pos_Before_Restructure(q)
             print("After del_pos",self.posnode.keys())
@@ -318,7 +321,6 @@ class BinarySearchTree:
                 
     
     # Basic BST insertion
-
     def insertElement(self, e):
         v = self.root
         u = node()
