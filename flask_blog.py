@@ -12,9 +12,10 @@ formpref=''
 @app.route('/home')
 def home():
     return render_template('home.html')
-@app.route('/visualization')
-def visualization():
-    return render_template('visualize.html')
+
+
+@app.route('/visualize')
+def widgets():
+    return render_template('widgets.html')
 if __name__ == "__main__":
     app.run(debug=True)
-
