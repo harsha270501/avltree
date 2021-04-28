@@ -1,6 +1,6 @@
-from vpython import *
 GlowScript 3.1 VPython
 
+from vpython import *
 
 bg_color = vec(0.8941, 0.9765, 0.9608)
 arr_color = vec(0.4313, 0.7686, 0.7607)
