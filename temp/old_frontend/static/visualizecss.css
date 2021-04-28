@@ -1,0 +1,94 @@
+
+h1 {text-align: center;}
+        p {text-align: left;}
+        div {text-align: center;}
+        h2 {text-align: center;}
+
+.sidenav {
+    border-style: solid;
+    border-color: #0d7377;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color:#61c0bf;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color:#0d7377;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+/*
+
+*/
+/* Style page content */
+.main {
+    border-style: solid;
+    border-color: #0d7377;
+  margin-left: 210px; /* Same as the width of the sidebar */
+  padding: 10px 10px;
+  height:430px;
+  width:1059px;
+  background-color: #e4f9f5;
+}
+
+.third{
+  margin-top: 382px;
+  border-style: solid;
+  border-color: #0d7377;
+  margin-left: -10px; /* Same as the width of the sidebar */
+padding: 10px 10px;
+height:131px;
+width:1059px;
+background-color: #61c0bf;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+hr{
+    size: 100%;
+    width: 100%;
+}
+
+.underlinepink{
+    border-style: solid;
+    border-color: #0d7377;
+    border-width: 0 0 2px 0;
+
+    
+}
+
+.centrepink{
+    text-align: center;
+    color: #0d7377;
+    
+}
+
+
+
+button{
+    background-color: #0d7377;
+    color: #e4f9f5;
+    
+}
+
+.inlinewithbgcolor{
+    border-style: solid;
+    border-color: #002C30;
+    border-width: 0 0 2px 0;
+    display: inline-block;
+    background-color: #e4f9f5;
+}

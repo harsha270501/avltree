@@ -1,8 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# WIth clash handling
-# GlowScript 3.0 VPython
-
 from vpython import *
 import copy
 
@@ -17,7 +12,6 @@ class node:
         self.currobj = None  # sphere obj
         self.arrparent = None  # arrow obj
         self.textobj = None  # label obj
-        self.freq = 0  # freq
         self.arrShaftWidth = 0.15
         self.arrHeadWidth = 2 * self.arrShaftWidth
         self.arrHeadLength = 3 * self.arrShaftWidth
@@ -33,6 +27,17 @@ class BinarySearchTree:
         self.fcn = 0
         self.pointer = None
     # function to find the position where the new element has to be inserted
+
+    def findElement(self, e, curnode):
+
+        if curnode != None:
+            if e < curnode.element:
+                return self.findElement(e, curnode.leftchild)
+            elif e == curnode.element:
+                return curnode
+            else:
+                return self.findElement(e, curnode.rightchild)
+        return None
 
     def findInsert(self, e, curnode):
         sleep(1)
@@ -60,7 +65,6 @@ class BinarySearchTree:
         sleep(1)
         if curnode != None:
 
-            # print(curnode.element)
             self.pointer.pos = curnode.currobj.pos
             if e < curnode.element:
                 return self.findDelete(e, curnode.leftchild)
@@ -77,11 +81,9 @@ class BinarySearchTree:
 
     def balanceCheck(self, w):
         if w != None:
-            h = self.findHeightIter(w.leftchild) \
-                - self.findHeightIter(w.rightchild)
-
-         #   print(w.element,h)
-
+            lh = self.findHeightIter(w.leftchild)
+            rh = self.findHeightIter(w.rightchild)
+            h = lh-rh
             if h < -1 or h > 1:
                 return w
             else:
@@ -91,14 +93,11 @@ class BinarySearchTree:
     # restructuring after delete - done recursively
 
     def restructureDel(self, u):
-
         if u != None:
             p1 = u.parent
-        if u == None:
-            p1 = None
-        self.trinode_restructure(u)
-        if p1 != None:
-            self.restructureDel(p1)
+            self.trinode_restructure(u)
+            if p1 != None:
+                self.restructureDel(p1)
 
     # restructure to balance tree
 
@@ -110,7 +109,7 @@ class BinarySearchTree:
             print(self.posnode)
             q = [z]
             self.del_Pos_Before_Restructure(q)
-            #print(self.posnode)
+            print("After del_pos", self.posnode.keys())
             if z.leftchild == None:
                 h1 = 0
             else:
@@ -124,19 +123,12 @@ class BinarySearchTree:
             else:
                 y = z.rightchild
 
-            # print(z.element,z.leftchild.element,z.rightchild.element,z.parent.element)
-
             h1 = self.findHeight(y.leftchild)
             h2 = self.findHeight(y.rightchild)
-
-            # print(y.element,y.leftchild.element,y.rightchild.element,y.parent.element)
-
             if h1 > h2:
                 x = y.leftchild
             else:
                 x = y.rightchild
-
-            # print(x.element,x.leftchild.element,x.rightchild.element,x.parent.element)
 
             sl = []
             sl.append(x.element)
@@ -211,12 +203,12 @@ class BinarySearchTree:
                 q = [x]
                 print(z.element, y.element, x.element)
                 self.new_Pos_After_Restructure(q)
+                print("After new_pos", self.posnode.keys())
+
                 print(z.element, y.element, x.element)
 
         else:
-            print(int(u.currobj.pos.x))
-            print(self.posnode.items())
-            if int(u.currobj.pos.x) in self.posnode:
+            if ((int(u.currobj.pos.x) in self.posnode) and (u.element != self.posnode[int(u.currobj.pos.x)].element)):
                 self.clashHandle(u)
                 self.posnode[int(u.currobj.pos.x)] = u
             else:
@@ -227,26 +219,17 @@ class BinarySearchTree:
         if(len(q) > 0):
             for i in q:
                 print(i.element)
-                if (int(i.currobj.pos.x) in self.posnode) and i.element == self.posnode[int(i.currobj.pos.x)].element:
+                if ((int(i.currobj.pos.x) in self.posnode) and (i.element == self.posnode[int(i.currobj.pos.x)].element)):
                     print("DE", self.posnode[int(i.currobj.pos.x)].element)
                     del self.posnode[int(i.currobj.pos.x)]
                 if(i.currobj != None):
                     i.currobj.visible = False
-                    #o=i.currobj
-                    #i.currobj=None
-                    #del o
 
                 if(i.arrparent != None):
                     i.arrparent.visible = False
-                    #o=i.arrparent
-                    #i.arrparent=None
-                    #del o
 
                 if(i.textobj != None):
                     i.textobj.visible = False
-                    #o=i.textobj
-                    #i.textobj=None
-                    #del o
 
                 w = self.getChildren(i)
                 for j in w:
@@ -304,10 +287,6 @@ class BinarySearchTree:
                         u.textobj = ln
 
                 if int(u.currobj.pos.x) in self.posnode.keys():
-                    #print("clash")
-                    # self.clashHandle(
-                    #     self.posnode[int(u.currobj.pos.x)], u.element)
-                    # new clash handle
                     self.clashHandle(u)
                     self.posnode[int(u.currobj.pos.x)] = u
                 else:
@@ -315,11 +294,9 @@ class BinarySearchTree:
 
                 scene.visible = True
                 w = self.getChildren(u)
-                for i in w:
-                    q1.append(i)
+                for j in w:
+                    q1.append(j)
             self.new_Pos_After_Restructure(q1)
-
- 
 
     # Basic BST insertion
 
@@ -345,7 +322,7 @@ class BinarySearchTree:
 
     # ADT - insertion in AVL
     def insertElementAVL(self, e):
-        
+
         u = self.insertElement(e)
         v = u.parent
         if v == None:
@@ -361,7 +338,7 @@ class BinarySearchTree:
                 vy = int(v.currobj.pos.y) - 1
                 vect = vector(vx, vy, 0)
                 s = sphere(pos=vect, radius=0.25, color=color.green)
-                ln = label(pos=vect, text=str(e), color=color.white, height=18, 
+                ln = label(pos=vect, text=str(e), color=color.white, height=18,
                            opacity=0, box=False)
                 a = arrow(
                     pos=v.currobj.pos,
@@ -370,7 +347,7 @@ class BinarySearchTree:
                     headwidth=u.arrHeadWidth,
                     headlength=u.arrHeadLength,
                     color=color.red,
-                    )
+                )
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
@@ -388,26 +365,20 @@ class BinarySearchTree:
                     headwidth=u.arrHeadWidth,
                     headlength=u.arrHeadLength,
                     color=color.red,
-                    )
+                )
                 u.currobj = s
                 u.arrparent = a
                 u.textobj = ln
-        #self.pointer.pos=u.currobj.pos
-        # if int(u.currobj.pos.x) in self.posnode.keys():
-        #     self.clashHandle(u)
-        #     self.posnode[int(u.currobj.pos.x)] = u
-
-        # else:
-        #     self.posnode[int(u.currobj.pos.x)] = u
-        self.pointer.pos=u.currobj.pos
+        self.pointer.pos = u.currobj.pos
         sleep(1)
-        self.pointer.color=color.cyan
+        self.pointer.color = color.cyan
         scene.visible = True
-        
+
         self.trinode_restructure(u)
-        for (i,v) in self.posnode.items():
-                print(i," ",v.element)
-        self.pointer.pos=u.currobj.pos
+        print("After complete restructuring and clash handle")
+        for (i, v) in self.posnode.items():
+            print(i, " ", v.element)
+        self.pointer.pos = u.currobj.pos
         return
 
     # BST insertion - visualisation
@@ -419,12 +390,9 @@ class BinarySearchTree:
     def searchvis(self, k, n):
         sleep(1)
         self.pointer.pos = n.currobj.pos
-        #print(n.element)
-        #print(n.element==k)
         if n.element == k:
             sleep(1)
             self.pointer.color = color.yellow
-            #print("is it getting reflected?")
             return
         else:
             if k > n.element and n.rightchild != None:
@@ -486,52 +454,48 @@ class BinarySearchTree:
         changed_posnode = {}
         for i in self.posnode:
             nodepos.append(i)
-        
-        print("Clash",nodepos)
+
+        print("Clash", nodepos)
         cx = 0
-        if(node.element<self.root.element):
+        if(node.element < self.root.element):
             cx = -1
         else:
             cx = 1
 
         for i in nodepos:
             if((cx == -1 and i <= node.currobj.pos.x) or (cx == 1 and i >= node.currobj.pos.x)):
-                if(node.parent!=None):
-                    if((self.posnode[i] != self.root) and ((i!=node.currobj.pos.x) or ((cx == -1 and node.parent.rightchild != node) or (cx == 1 and node.parent.leftchild != node)))):
-                        temp = self.posnode[i]
-                        del self.posnode[i]
+                if((self.posnode[i] != self.root) and ((i != node.currobj.pos.x) or ((cx == -1 and node.parent != None and node.parent.rightchild != node) or (cx == 1 and node.parent != None and node.parent.leftchild != node)))):
+                    temp = self.posnode[i]
+                    del self.posnode[i]
 
-                        temp.currobj.pos.x += cx
-                        temp.arrparent.pos = temp.parent.currobj.pos
-                        temp.arrparent.axis = temp.currobj.pos - \
-                            temp.parent.currobj.pos
-                        temp.textobj.pos = temp.currobj.pos
-                        if(temp.leftchild != None):
-                            temp.leftchild.arrparent.pos = temp.currobj.pos
-                            temp.leftchild.arrparent.axis = temp.leftchild.currobj.pos - \
-                                temp.currobj.pos
+                    temp.currobj.pos.x += cx
+                    temp.arrparent.pos = temp.parent.currobj.pos
+                    temp.arrparent.axis = temp.currobj.pos - \
+                        temp.parent.currobj.pos
+                    temp.textobj.pos = temp.currobj.pos
+                    if(temp.leftchild != None):
+                        temp.leftchild.arrparent.pos = temp.currobj.pos
+                        temp.leftchild.arrparent.axis = temp.leftchild.currobj.pos - \
+                            temp.currobj.pos
 
-                        if(temp.rightchild != None):
-                            temp.rightchild.arrparent.pos = temp.currobj.pos
-                            temp.rightchild.arrparent.axis = temp.rightchild.currobj.pos - \
-                                temp.currobj.pos
+                    if(temp.rightchild != None):
+                        temp.rightchild.arrparent.pos = temp.currobj.pos
+                        temp.rightchild.arrparent.axis = temp.rightchild.currobj.pos - \
+                            temp.currobj.pos
 
-                        changed_posnode[i+cx] = temp
+                    changed_posnode[i+cx] = temp
 
-        if((cx == -1 and node.parent.rightchild==node) or (cx == 1 and node.parent.leftchild==node)):
+        if((cx == -1 and node.parent != None and node.parent.rightchild == node) or (cx == 1 and node.parent != None and node.parent.leftchild == node)):
             node.currobj.pos.x += cx
             node.arrparent.pos = node.parent.currobj.pos
             node.arrparent.axis = node.currobj.pos - node.parent.currobj.pos
             node.textobj.pos = node.currobj.pos
-        
+
         for i in changed_posnode:
             self.posnode[i] = changed_posnode[i]
 
         if(flag == 1):
             self.pointer.pos = node.currobj.pos
-
-
-
 
     def inorderTraverse(self, v):
         if v != None:
@@ -578,10 +542,14 @@ class BinarySearchTree:
                 else:
                     p.rightchild = None
             x = int(t.currobj.pos.x)
-            del self.posnode[x]
             t.currobj.visible = False
-            t.arrparent.visible = False
+            if(t.arrparent != None):
+                t.arrparent.visible = False
             t.textobj.visible = False
+            del self.posnode[x]
+            print("after deletion", self.posnode.keys())
+            self.restructureDel(t.parent)
+            print("after restructure", self.posnode.keys())
             del t
         elif child == 1:
             if(l != None):
@@ -607,21 +575,58 @@ class BinarySearchTree:
             t.textobj.text = str(tempele)
         return
 
+    def repositionAfterDel(self):
+
+        nodepos = []
+        for i in self.posnode:
+            nodepos.append(i)
+
+        nodepos.sort()
+        for i in range(1, len(nodepos)):
+            if(nodepos[i]-nodepos[i-1] != 1):
+                if(nodepos[i-1] < 0):
+                    for j in range(i-1, -1, -1):
+                        o = self.posnode[nodepos[j]]
+                        del self.posnode[int(o.currobj.pos.x)]
+                        o.currobj.pos.x = int(o.currobj.pos.x)+1
+                        if(o.parent != None):
+                            o.arrparent.pos = o.parent.currobj.pos
+                            o.arrparent.axis = o.currobj.pos - o.parent.currobj.pos
+                        o.textobj.pos = o.currobj.pos
+                        self.posnode[int(o.currobj.pos.x)] = o
+                        if(o.rightchild != None):
+                            rc = o.rightchild
+                            rc.arrparent.pos = o.currobj.pos
+                            rc.arrparent.axis = rc.currobj.pos - o.currobj.pos
+                            o.rightchild = rc
+
+                elif(nodepos[i] > 0):
+                    for j in range(i, len(nodepos)):
+                        o = self.posnode[nodepos[j]]
+                        del self.posnode[int(o.currobj.pos.x)]
+                        o.currobj.pos.x = int(o.currobj.pos.x)-1
+                        if(o.parent != None):
+                            o.arrparent.pos = o.parent.currobj.pos
+                            o.arrparent.axis = o.currobj.pos - o.parent.currobj.pos
+                        o.textobj.pos = o.currobj.pos
+                        self.posnode[int(o.currobj.pos.x)] = o
+                        if(o.leftchild != None):
+                            lc = o.leftchild
+                            lc.arrparent.pos = o.currobj.pos
+                            lc.arrparent.axis = lc.currobj.pos - o.currobj.pos
+                            o.leftchild = lc
+                break
+
     # AVL- delete element
 
     def deleteElementAVL(self, e):
         t = self.findDelete(e, self.root)
-        self.deleteElement(e)
-
-        # print("Immediate after delete")
-        # self.inorderTraverse(self.root)
-        # print()
-
-        w = t
-
-        self.restructureDel(w)
-
-        return
+        if(t != None):
+            self.deleteElement(e)
+            self.repositionAfterDel()
+            return 1
+        else:
+            return 0
 
     # AVL - adt create
 
@@ -636,9 +641,6 @@ class BinarySearchTree:
         rr = items[mid + 1:]
         u = node()
         u.element = items[mid]
-
-        # print(mid,u.element)
-
         if l > 1:
             lchild = self.adtCreate(lr)
             rchild = self.adtCreate(rr)
@@ -666,9 +668,6 @@ class BinarySearchTree:
         lr = items[:mid]
         rr = items[mid + 1:]
         u = items[mid]
-
-        # print("element:",u.element,end="-")
-
         if l > 1:
             lchild = self.createTree(lr)
             rchild = self.createTree(rr)
@@ -677,18 +676,11 @@ class BinarySearchTree:
             if lchild != None or rchild != None:
                 y = u.currobj.pos.y
                 if lchild != None:
-
-                    # print("left:",lchild.element,end=",")
-
                     lchild.parent = u
                     if lchild.currobj.pos.y > y:
                         y = lchild.currobj.pos.y
 
                 if rchild != None:
-
-                    # print("right:",rchild.element)
-
-                    #                     print ()
                     rchild.parent = u
                     if rchild.currobj.pos.y > y:
                         y = rchild.currobj.pos.y
@@ -721,14 +713,6 @@ class BinarySearchTree:
 
             u.leftchild = None
             u.rightchild = None
-#         print (
-#             'Changed position',
-#             u.element,
-#             ' ',
-#             u.currobj.pos.x,
-#             ' ',
-#             u.currobj.pos.y,
-#             )
         self.root = u
         return u
 
@@ -798,7 +782,7 @@ class BinarySearchTree:
         if v == None:
             return 0
 
-        u = self.findDelete(v.element, self.root)
+        u = self.findElement(v.element, self.root)
         if u == None:
             return 0
         if u != None:
@@ -821,52 +805,8 @@ class BinarySearchTree:
 
 def testmain():
     ch = 'y'
-
-    """bstadt = BinarySearchTree()
-    bstadt.pointer.visible = False
-    scene.visible = False
-    print('ADT Demo: ')
-    while ch == 'y':
-        print('1.Creation 2.Insertion 3.Deletion')
-        op = int(input())
-        if op == 1:
-            l = list(map(int, input().strip().split()))
-            l.sort()
-            bstadt.adtCreate(l)
-            print("Inorder traversal: ",end=" ")
-            bstadt.inorderTraverse(bstadt.root)
-            print ()
-            print("Preorder traversal: ",end=" ")
-            bstadt.preorderTraverse(bstadt.root)
-            print ()
-        elif op == 2:
-            i = int(input('Enter element to be inserted: '))
-            bstadt.insertElementAVL(i)
-            print("Inorder traversal: ",end=" ")
-            bstadt.inorderTraverse(bstadt.root)
-            print ()
-            print("Preorder traversal: ",end=" ")
-            bstadt.preorderTraverse(bstadt.root)
-            print ()
-        elif op == 3:
-            i = int(input('Enter element to be deleted: '))
-            bstadt.deleteElementAVL(i)
-            print("Inorder traversal: ",end=" ")
-            bstadt.inorderTraverse(bstadt.root)
-            print ()
-            print("Preorder traversal: ",end=" ")
-            bstadt.preorderTraverse(bstadt.root)
-            print ()
-        else:
-            print('Invalid option')
-        ch = input('Do you want to continue?(y/n): ')
-"""
     print('Visualisation - Create AVL tree')
-#       scene.visible = False
-#     scene = canvas()
     bst1 = BinarySearchTree()
-#     bst1.pointer.visible = False
-#     bst1.pointer = ring(pos=vector(0,0,0),axis=vector(0,0,1),radius=0.26,color=color.purple,thickness=0.1)
     l = list(map(int, input().strip().split()))
     x = len(l)
     x *= -1
@@ -895,11 +835,9 @@ def testmain():
     bst2.pointer = ring(pos=vector(0, 0, 0), axis=vector(
         0, 0, 1), radius=0.26, color=color.purple, thickness=0.1)
     ch = input('Do you want to continue?(y/n): ')
-#     scene = canvas()
 
     if ch != 'y':
         return
-#     ch = 'y'
 
     while ch == 'y':
         rate(1)
@@ -932,11 +870,11 @@ def testmain():
             else:
                 bst2.pointer.pos = vector(0, 0, 0)
                 bst2.pointer.color = color.red
-                bst2.deleteElementAVL(i)
-                if(bst2.pointer.color == color.red):
-                    print("Element", i, "does not exist in tree")
+                cond = bst2.deleteElementAVL(i)
+                if(cond == 1):
+                    print("Element", i, "deleted")
                 else:
-                    print("Element deleted")
+                    print("Element does not exist")
 
         elif(op == 4):
             print('Visualisation - Preorder')
@@ -974,7 +912,10 @@ def testmain():
             print("Invalid option")
 
 #       scene.waitfor('click')
+
         ch = input('Do you want to continue?(y/n): ')
+        sleep(1)
+        bst2.pointer.visible = True
 
 
 def main():
