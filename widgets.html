@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
+    <script src="http://www.skulpt.org/js/skulpt.min.js" type="text/javascript"></script> 
+    <script src="http://www.skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script> 
+    
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+        </script>
+
+<title>Visualise AVL Tree</title>
+<link rel="stylesheet" href="../static/visualizecss.css">
+
+<!--<style>
+    
+    .button3 {border-radius: 9px;}
+    button:hover {
+background-color: pink;
+}
+</style>-->
+
+<style>
+    button:hover {
+      background-color: #e4f9f5;
+    }
+    </style>
+
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
+ <script src="http://www.skulpt.org/js/skulpt.min.js" type="text/javascript"></script> 
+ <script src="http://www.skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script> 
+
+
+</head>
+<body>
+    <div class="sidenav">
+        <div class="underlinepink">
+            <h3 style="color: #002C30;"><strong><em>Operations:</em></strong> </h3>
+            <!--<h3>OPERATIONS</h3>-->
+        </div>
+    
+       
+        <br>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate" class="btn btn-default" style="background-color:#0d7377;">Create</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLonginsert" class="btn btn-default" style="background-color:#0d7377;">Insert</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongdelete" class="btn btn-default" style="background-color:#0d7377;" >Delete</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongsearch" class="btn btn-default" style="background-color:#0d7377;" >Search</button></a>
+        <!--<a href="#" onclick="return show('Insert');">Insert</a>-->
+        <!--<a href="#"><button onclick="myFunction()" >Insert</button></a>
+        <a href="#"onclick="return show('Delete');">Delete</a>
+        <a href="#" onclick="return show('Search');">Search</a>-->
+
+        <!-- Modal -->
+<div class="modal fade" id="exampleModalLongcreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">AVL Creation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> 
+        <div class="modal-body">
+          <p>This AVL tree has been constructed using bottom up approach for a balanced BST. The bottom-up approach uses a linked list to build a balanced BST. As a result, we’ll have a pointer to the head of the list and we can only move this pointer forward in constant time. The complexity of the top-down approach is O(n), where n is the number of elements inside the linked list.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalLonginsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">AVL Insertion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Adding an element to an AVL tree is similar to adding one in a BST, but the process takes into account an extra attribute, the balance factor for each node. This factor indicates whether the tree is left-heavy (the height of the left sub-tree is 1 greater than the right sub-tree), balanced (both sub-trees are the same height) or right-heavy (the height of the right sub-tree is 1 greater than the left sub-tree). If the balance would be destroyed by an insertion, a rotation is performed to correct the balance.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalLongdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">AVL Deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Deletion can also be performed in the same way as it is performed in a binary search tree. Deletion may also disturb the balance of the tree therefore, various types of rotations are used to rebalance the tree.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalLongsearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">AVL Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>The property that all the values lesser than the value of a node lies on the left subtree and all the values greater than the value of a node lies on the right subtree helps to perform the searching in O(h) time (where h is the height of the tree). Suppose we are on a node and the value to be searched is smaller than the value of the node. In that case, we will search for the value in the left subtree. Otherwise, if the value to be searched is larger, we will just search the right subtree.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <br/><br/><br/><br/>
+        <br>
+        <a href="{{url_for('home')}}"><button type="button" class="btn btn-default" style="background-color:#0d7377;" >Back</button></a>
+      </div>
+
+      <div class="main">
+    
+        <div class="inlinewithbgcolor">
+             <!--INLINEEEEEEEEEEEEE-->
+                <h2 style="color: #0d7377;"><strong><em>Visualise your AVL Tree!</em></strong></h2>
+                
+       <!--<div class="centrepink">
+            <p>Insert</p>
+        </div>-->
+        </div>
+       
+        <div>
+            <br>
+        </div>
+        <div id="glowscript" class="glowscript">
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+            <link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+            <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+            <script type="text/javascript" src="https://www.glowscript.org/package/glow.3.1.min.js"></script>
+            <script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.1.min.js"></script>
+            <script type="text/javascript">
+            
+            // START JAVASCRIPT
+            (function() {;
+            var ρσ_modules = {};
+            var inp_str, win;
+            ρσ_modules.pythonize = {};
+            
+            (function(){
+                function strings() {
+                    var string_funcs, exclude, name;
+                    string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+                    if (!arguments.length) {
+                        exclude = (function(){
+                            var s = ρσ_set();
+                            s.jsset.add("split");
+                            s.jsset.add("replace");
+                            return s;
+                        })();
+                    } else if (arguments[0]) {
+                        exclude = Array.prototype.slice.call(arguments);
+                    } else {
+                        exclude = null;
+                    }
+                    if (exclude) {
+                        string_funcs = string_funcs.difference(set(exclude));
+                    }
+                    var ρσ_Iter0 = string_funcs;
+                    ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+                    for (var ρσ_Index0 of ρσ_Iter0) {
+                        name = ρσ_Index0;
+                        (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+                    }
+                };
+                if (!strings.__module__) Object.defineProperties(strings, {
+                    __module__ : {value: "pythonize"}
+                });
+            
+                ρσ_modules.pythonize.strings = strings;
+            })();
+            async function __main__() {
+            "use strict";
+            
+                var version, display, vector, print, arange, __name__, type, scene, ρσ_ls, bg_color, arr_color, node_color, inp_str, win, _GS_1, bst1, bst2;
+                version = ρσ_list_decorate([ "3.1", "glowscript" ]);
+                Array.prototype['+'] = function(r) {return this.concat(r)}
+                Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+                window.__GSlang = "vpython";
+                display = canvas;
+                vector = vec;
+                print = GSprint;
+                arange = range;
+                __name__ = "__main__";
+                type = pytype;
+                scene = canvas();
+                var strings = ρσ_modules.pythonize.strings;
+            
+                strings();
+                "5";
+                bg_color = vec(.8941, .9765, .9608);
+                "6";
+                arr_color = vec(.4313, .7686, .7607);
+                "7";
+                node_color = vec(.051, .451, .4667);
+                "9";
+                inp_str = "";
+                "10";
+                win = undefined;
+                "13";
+                async function bind_fn(obj) {
+                    "14";
+                    "15";
+                    inp_str = obj.text;
+                    "16";
+                    win.remove();
+                };
+                if (!bind_fn.__argnames__) Object.defineProperties(bind_fn, {
+                    __argnames__ : {value: ["obj"]},
+                    __module__ : {value: null}
+                });
+            
+                "19";
+                async function get_input() {
+                    var prompt_text = (arguments[0] === undefined || ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? get_input.__defaults__.prompt_text : arguments[0];
+                    var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+                    if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+                    if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "prompt_text")){
+                        prompt_text = ρσ_kwargs_obj.prompt_text;
+                    }
+                    "20";
+                    "21";
+                    inp_str = "";
+                    (await sleep(.1));
+                    "22";
+                    win = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({prompt: prompt_text, type: "string", bind: bind_fn})]);
+                };
+                if (!get_input.__defaults__) Object.defineProperties(get_input, {
+                    __defaults__ : {value: {prompt_text:""}},
+                    __handles_kwarg_interpolation__ : {value: true},
+                    __argnames__ : {value: ["prompt_text"]},
+                    __module__ : {value: null}
+                });
+            
+                "25";
+                async function wait_for_input() {
+                    "26";
+                    "27";
+                    while ((inp_str === "" || typeof inp_str === "object" && ρσ_equals(inp_str, ""))) {
+                        "28";
+                        (await rate(100));
+                    }
+                };
+                if (!wait_for_input.__module__) Object.defineProperties(wait_for_input, {
+                    __module__ : {value: null}
+                });
+            
+                "31";
+                function node() {;
+                }
+                node.prototype.__init__ = async function __init__() {
+                    var self = this;
+                    "34";
+                    self.element = 0;
+                    "35";
+                    self.leftchild = undefined;
+                    "36";
+                    self.rightchild = undefined;
+                    "37";
+                    self.parent = undefined;
+                    "38";
+                    self.currobj = undefined;
+                    "39";
+                    self.arrparent = undefined;
+                    "40";
+                    self.textobj = undefined;
+                    "41";
+                    self.arrShaftWidth = .15;
+                    "42";
+                    self.arrHeadWidth = 2["*"](self.arrShaftWidth);
+                    "43";
+                    self.arrHeadLength = 3["*"](self.arrShaftWidth);
+                };
+                if (!node.prototype.__init__.__module__) Object.defineProperties(node.prototype.__init__, {
+                    __module__ : {value: null}
+                });
+                node.__argnames__ = node.prototype.__init__.__argnames__;
+                node.__handles_kwarg_interpolation__ = node.prototype.__init__.__handles_kwarg_interpolation__;
+                node.prototype.__repr__ = async function __repr__() {
+                            return "<"["+"](__name__)["+"](".")["+"](this.constructor.name)["+"](" #")["+"](this.ρσ_object_id)["+"](">");
+                };
+                node.prototype.__str__ = async function __str__() {
+                    return (await this.__repr__());
+                };
+                Object.defineProperty(node.prototype, "__bases__", {value: []});
+                
+            
+                "46";
+                function BinarySearchTree() {;
+                }
+                BinarySearchTree.prototype.__init__ = async function __init__() {
+                    var self = this;
+                    "49";
+                    self.sz = 0;
+                    "50";
+                    self.root = undefined;
+                    "51";
+                    self.ht = 0;
+                    "52";
+                    self.posnode = {};
+                    "53";
+                    self.fcn = 0;
+                    "54";
+                    self.pointer = undefined;
+                };
+                if (!BinarySearchTree.prototype.__init__.__module__) Object.defineProperties(BinarySearchTree.prototype.__init__, {
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.__argnames__ = BinarySearchTree.prototype.__init__.__argnames__;
+                BinarySearchTree.__handles_kwarg_interpolation__ = BinarySearchTree.prototype.__init__.__handles_kwarg_interpolation__;
+                BinarySearchTree.prototype.findElement = async function findElement(e, curnode) {
+                    var self = this;
+                    "59";
+                    if ((curnode !== undefined && (typeof curnode !== "object" || ρσ_not_equals(curnode, undefined)))) {
+                        "60";
+                        if (e["<"](curnode.element)) {
+                            "61";
+                            return (await self.findElement(e, curnode.leftchild));
+                            "62";
+                        } else if ((e === curnode.element || typeof e === "object" && ρσ_equals(e, curnode.element))) {
+                            "63";
+                            return curnode;
+                            "64";
+                        } else {
+                            "65";
+                            return (await self.findElement(e, curnode.rightchild));
+                        }
+                    }
+                    "66";
+                    return undefined;
+                };
+                if (!BinarySearchTree.prototype.findElement.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findElement, {
+                    __argnames__ : {value: ["e", "curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findInsert = async function findInsert(e, curnode) {
+                    var self = this;
+                    "69";
+                    (await sleep(1));
+                    "70";
+                    if ((curnode !== undefined && (typeof curnode !== "object" || ρσ_not_equals(curnode, undefined)))) {
+                        "71";
+                        self.pointer.pos = curnode.currobj.pos;
+                        "72";
+                        if (e["<"](curnode.element)) {
+                            "73";
+                            if ((curnode.leftchild === undefined || typeof curnode.leftchild === "object" && ρσ_equals(curnode.leftchild, undefined))) {
+                                "74";
+                                (await sleep(1));
+                                "75";
+                                self.pointer.color = color.green;
+                                "76";
+                                return curnode;
+                                "77";
+                            } else {
+                                "78";
+                                return (await self.findInsert(e, curnode.leftchild));
+                                "79";
+                            }
+                        } else {
+                            "81";
+                            if ((curnode.rightchild === undefined || typeof curnode.rightchild === "object" && ρσ_equals(curnode.rightchild, undefined))) {
+                                "82";
+                                (await sleep(1));
+                                "83";
+                                self.pointer.color = color.green;
+                                "84";
+                                return curnode;
+                                "85";
+                            } else {
+                                "86";
+                                return (await self.findInsert(e, curnode.rightchild));
+                            }
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.findInsert.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findInsert, {
+                    __argnames__ : {value: ["e", "curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findDelete = async function findDelete(e, curnode) {
+                    var self = this;
+                    "91";
+                    (await sleep(1));
+                    "92";
+                    if ((curnode !== undefined && (typeof curnode !== "object" || ρσ_not_equals(curnode, undefined)))) {
+                        "94";
+                        self.pointer.pos = curnode.currobj.pos;
+                        "95";
+                        if (e["<"](curnode.element)) {
+                            "96";
+                            return (await self.findDelete(e, curnode.leftchild));
+                            "98";
+                        } else if ((e === curnode.element || typeof e === "object" && ρσ_equals(e, curnode.element))) {
+                            "99";
+                            (await sleep(1));
+                            "100";
+                            self.pointer.color = color.green;
+                            "101";
+                            return curnode;
+                            "102";
+                        } else {
+                            "103";
+                            return (await self.findDelete(e, curnode.rightchild));
+                        }
+                    }
+                    "104";
+                    return undefined;
+                };
+                if (!BinarySearchTree.prototype.findDelete.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findDelete, {
+                    __argnames__ : {value: ["e", "curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.balanceCheck = async function balanceCheck(w) {
+                    var self = this;
+                    var ρσ_ls, lh, rh, h;
+                    "109";
+                    if ((w !== undefined && (typeof w !== "object" || ρσ_not_equals(w, undefined)))) {
+                        "110";
+                        lh = (await self.findHeightIter(w.leftchild));
+                        "111";
+                        rh = (await self.findHeightIter(w.rightchild));
+                        "112";
+                        h = lh["-"](rh);
+                        "113";
+                        if (h["<"](1["-u"]()) || h[">"](1)) {
+                            "114";
+                            return w;
+                            "115";
+                        } else {
+                            "116";
+                            return (await self.balanceCheck(w.parent));
+                        }
+                    }
+                    "117";
+                    return undefined;
+                };
+                if (!BinarySearchTree.prototype.balanceCheck.__argnames__) Object.defineProperties(BinarySearchTree.prototype.balanceCheck, {
+                    __argnames__ : {value: ["w"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.restructureDel = async function restructureDel(u) {
+                    var self = this;
+                    var ρσ_ls, p1;
+                    "122";
+                    if ((u !== undefined && (typeof u !== "object" || ρσ_not_equals(u, undefined)))) {
+                        "123";
+                        p1 = u.parent;
+                        "124";
+                        (await self.trinode_restructure(u));
+                        "125";
+                        if ((p1 !== undefined && (typeof p1 !== "object" || ρσ_not_equals(p1, undefined)))) {
+                            "126";
+                            (await self.restructureDel(p1));
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.restructureDel.__argnames__) Object.defineProperties(BinarySearchTree.prototype.restructureDel, {
+                    __argnames__ : {value: ["u"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.trinode_restructure = async function trinode_restructure(u) {
+                    var self = this;
+                    var ρσ_ls, z, q, h1, h2, y, x, sl, b, p, t2, t1;
+                    "131";
+                    z = (await self.balanceCheck(u));
+                    "133";
+                    if ((z !== undefined && (typeof z !== "object" || ρσ_not_equals(z, undefined)))) {
+                        "134";
+                        print("Imbalance at: ", z.element);
+                        "136";
+                        q = ρσ_list_decorate([ z ]);
+                        "137";
+                        (await self.del_Pos_Before_Restructure(q));
+                        "139";
+                        if ((z.leftchild === undefined || typeof z.leftchild === "object" && ρσ_equals(z.leftchild, undefined))) {
+                            "140";
+                            h1 = 0;
+                            "141";
+                        } else {
+                            "142";
+                            h1 = (await self.findHeight(z.leftchild));
+                            "143";
+                        }
+                        if ((z.rightchild === undefined || typeof z.rightchild === "object" && ρσ_equals(z.rightchild, undefined))) {
+                            "144";
+                            h2 = 0;
+                            "145";
+                        } else {
+                            "146";
+                            h2 = (await self.findHeight(z.rightchild));
+                            "147";
+                        }
+                        if (h1[">"](h2)) {
+                            "148";
+                            y = z.leftchild;
+                            "149";
+                        } else {
+                            "150";
+                            y = z.rightchild;
+                        }
+                        "152";
+                        h1 = (await self.findHeight(y.leftchild));
+                        "153";
+                        h2 = (await self.findHeight(y.rightchild));
+                        "154";
+                        if (h1[">"](h2)) {
+                            "155";
+                            x = y.leftchild;
+                            "156";
+                        } else {
+                            "157";
+                            x = y.rightchild;
+                        }
+                        "159";
+                        sl = ρσ_list_decorate([]);
+                        "160";
+                        sl.append(x.element);
+                        "161";
+                        sl.append(y.element);
+                        "162";
+                        sl.append(z.element);
+                        "163";
+                        (await sl.pysort());
+                        "164";
+                        if ((sl[1] === x.element || typeof sl[1] === "object" && ρσ_equals(sl[1], x.element))) {
+                            "165";
+                            b = x;
+                            "166";
+                        } else if ((sl[1] === y.element || typeof sl[1] === "object" && ρσ_equals(sl[1], y.element))) {
+                            "167";
+                            b = y;
+                            "168";
+                        } else if ((sl[1] === z.element || typeof sl[1] === "object" && ρσ_equals(sl[1], z.element))) {
+                            "169";
+                            b = z;
+                            "170";
+                        }
+                        if ((b === y || typeof b === "object" && ρσ_equals(b, y))) {
+                            "171";
+                            p = z.parent;
+                            "172";
+                            if ((y === y.parent.leftchild || typeof y === "object" && ρσ_equals(y, y.parent.leftchild))) {
+                                "173";
+                                t2 = y.rightchild;
+                                "174";
+                                y.rightchild = z;
+                                "175";
+                                z.leftchild = t2;
+                                "176";
+                                if ((t2 !== undefined && (typeof t2 !== "object" || ρσ_not_equals(t2, undefined)))) {
+                                    "177";
+                                    t2.parent = z;
+                                    "178";
+                                }
+                            } else {
+                                "179";
+                                t2 = y.leftchild;
+                                "180";
+                                y.leftchild = z;
+                                "181";
+                                z.rightchild = t2;
+                                "182";
+                                if ((t2 !== undefined && (typeof t2 !== "object" || ρσ_not_equals(t2, undefined)))) {
+                                    "183";
+                                    t2.parent = z;
+                                    "184";
+                                }
+                            }
+                            if ((p !== undefined && (typeof p !== "object" || ρσ_not_equals(p, undefined)))) {
+                                "185";
+                                if ((z === p.leftchild || typeof z === "object" && ρσ_equals(z, p.leftchild))) {
+                                    "186";
+                                    p.leftchild = y;
+                                    "187";
+                                } else {
+                                    "188";
+                                    p.rightchild = y;
+                                    "189";
+                                }
+                            } else {
+                                "190";
+                                self.root = y;
+                            }
+                            "191";
+                            y.parent = p;
+                            "192";
+                            z.parent = y;
+                            "193";
+                            q = ρσ_list_decorate([ y ]);
+                            "194";
+                            (await self.new_Pos_After_Restructure(q));
+                            "195";
+                        } else if ((b === x || typeof b === "object" && ρσ_equals(b, x))) {
+                            "196";
+                            p = z.parent;
+                            "197";
+                            t1 = x.leftchild;
+                            "198";
+                            t2 = x.rightchild;
+                            "199";
+                            if ((y === z.leftchild || typeof y === "object" && ρσ_equals(y, z.leftchild)) && (x === y.rightchild || typeof x === "object" && ρσ_equals(x, y.rightchild))) {
+                                "200";
+                                z.leftchild = t2;
+                                "201";
+                                if ((t2 !== undefined && (typeof t2 !== "object" || ρσ_not_equals(t2, undefined)))) {
+                                    "202";
+                                    t2.parent = z;
+                                    "203";
+                                }
+                                if ((t1 !== undefined && (typeof t1 !== "object" || ρσ_not_equals(t1, undefined)))) {
+                                    "204";
+                                    t1.parent = y;
+                                }
+                                "205";
+                                y.rightchild = t1;
+                                "206";
+                                x.leftchild = y;
+                                "207";
+                                x.rightchild = z;
+                                "208";
+                            } else {
+                                "209";
+                                z.rightchild = t1;
+                                "210";
+                                if ((t1 !== undefined && (typeof t1 !== "object" || ρσ_not_equals(t1, undefined)))) {
+                                    "211";
+                                    t1.parent = z;
+                                }
+                                "212";
+                                y.leftchild = t2;
+                                "213";
+                                if ((t2 !== undefined && (typeof t2 !== "object" || ρσ_not_equals(t2, undefined)))) {
+                                    "214";
+                                    t2.parent = y;
+                                }
+                                "215";
+                                x.leftchild = z;
+                                "216";
+                                x.rightchild = y;
+                                "217";
+                            }
+                            if ((p !== undefined && (typeof p !== "object" || ρσ_not_equals(p, undefined)))) {
+                                "218";
+                                if ((z === p.leftchild || typeof z === "object" && ρσ_equals(z, p.leftchild))) {
+                                    "219";
+                                    p.leftchild = x;
+                                    "220";
+                                } else {
+                                    "221";
+                                    p.rightchild = x;
+                                    "222";
+                                }
+                            } else {
+                                "223";
+                                self.root = x;
+                            }
+                            "224";
+                            x.parent = p;
+                            "225";
+                            y.parent = x;
+                            "226";
+                            z.parent = x;
+                            "227";
+                            q = ρσ_list_decorate([ x ]);
+                            "228";
+                            (await self.new_Pos_After_Restructure(q));
+                            "230";
+                        }
+                    } else {
+                        "231";
+                        if (ρσ_in(int(u.currobj.pos.x), self.posnode) && (u.element !== (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)].element && (typeof u.element !== "object" || ρσ_not_equals(u.element, (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)].element)))) {
+                            "232";
+                            (await self.clashHandle(u));
+                            "233";
+                            (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)] = u;
+                            "234";
+                        } else {
+                            "235";
+                            (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)] = u;
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.trinode_restructure.__argnames__) Object.defineProperties(BinarySearchTree.prototype.trinode_restructure, {
+                    __argnames__ : {value: ["u"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.del_Pos_Before_Restructure = async function del_Pos_Before_Restructure(q) {
+                    var self = this;
+                    var ρσ_ls, q1, w, j, i;
+                    "238";
+                    q1 = ρσ_list_decorate([]);
+                    "239";
+                    if (len(q)[">"](0)) {
+                        "240";
+                        var ρσ_Iter1 = q;
+                        ρσ_Iter1 = ((typeof ρσ_Iter1[Symbol.iterator] === "function") ? (ρσ_Iter1 instanceof Map ? ρσ_Iter1.keys() : ρσ_Iter1) : Object.keys(ρσ_Iter1));
+                        for (var ρσ_Index1 of ρσ_Iter1) {
+                            i = ρσ_Index1;
+                            "241";
+                            if (ρσ_in(int(i.currobj.pos.x), self.posnode) && (i.element === (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(i.currobj.pos.x)), ρσ_expr_temp)].element || typeof i.element === "object" && ρσ_equals(i.element, (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(i.currobj.pos.x)), ρσ_expr_temp)].element))) {
+                                "242";
+                                ρσ_delitem(self.posnode, str(int(i.currobj.pos.x)));
+                                "243";
+                            }
+                            if ((i.currobj !== undefined && (typeof i.currobj !== "object" || ρσ_not_equals(i.currobj, undefined)))) {
+                                "244";
+                                i.currobj.visible = false;
+                                "249";
+                            }
+                            if ((i.arrparent !== undefined && (typeof i.arrparent !== "object" || ρσ_not_equals(i.arrparent, undefined)))) {
+                                "250";
+                                i.arrparent.visible = false;
+                                "255";
+                            }
+                            if ((i.textobj !== undefined && (typeof i.textobj !== "object" || ρσ_not_equals(i.textobj, undefined)))) {
+                                "256";
+                                i.textobj.visible = false;
+                            }
+                            "261";
+                            w = (await self.getChildren(i));
+                            "262";
+                            var ρσ_Iter2 = w;
+                            ρσ_Iter2 = ((typeof ρσ_Iter2[Symbol.iterator] === "function") ? (ρσ_Iter2 instanceof Map ? ρσ_Iter2.keys() : ρσ_Iter2) : Object.keys(ρσ_Iter2));
+                            for (var ρσ_Index2 of ρσ_Iter2) {
+                                j = ρσ_Index2;
+                                "263";
+                                q1.append(j);
+                            }
+                        }
+                        "264";
+                        (await self.del_Pos_Before_Restructure(q1));
+                    }
+                };
+                if (!BinarySearchTree.prototype.del_Pos_Before_Restructure.__argnames__) Object.defineProperties(BinarySearchTree.prototype.del_Pos_Before_Restructure, {
+                    __argnames__ : {value: ["q"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.new_Pos_After_Restructure = async function new_Pos_After_Restructure(q) {
+                    var self = this;
+                    var ρσ_ls, q1, v, vect, s, ln, vx, vy, a, w, j, u;
+                    "267";
+                    q1 = ρσ_list_decorate([]);
+                    "268";
+                    if (len(q)[">"](0)) {
+                        "269";
+                        var ρσ_Iter3 = q;
+                        ρσ_Iter3 = ((typeof ρσ_Iter3[Symbol.iterator] === "function") ? (ρσ_Iter3 instanceof Map ? ρσ_Iter3.keys() : ρσ_Iter3) : Object.keys(ρσ_Iter3));
+                        for (var ρσ_Index3 of ρσ_Iter3) {
+                            u = ρσ_Index3;
+                            "270";
+                            v = u.parent;
+                            "271";
+                            if ((v === undefined || typeof v === "object" && ρσ_equals(v, undefined))) {
+                                "272";
+                                vect = vector(0, 0, 0);
+                                "273";
+                                s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                                "274";
+                                ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, opacity: 0, height: 18, box: false})]);
+                                "276";
+                                u.currobj = s;
+                                "277";
+                                u.textobj = ln;
+                                "278";
+                            } else {
+                                "279";
+                                if ((u === v.rightchild || typeof u === "object" && ρσ_equals(u, v.rightchild))) {
+                                    "280";
+                                    vx = int(v.currobj.pos.x)["+"](1);
+                                    "281";
+                                    vy = int(v.currobj.pos.y)["-"](1);
+                                    "282";
+                                    vect = vector(vx, vy, 0);
+                                    "283";
+                                    s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                                    "284";
+                                    ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, height: 18, opacity: 0, box: false})]);
+                                    "286";
+                                    a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect["-"](v.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                                    "294";
+                                    u.currobj = s;
+                                    "295";
+                                    u.arrparent = a;
+                                    "296";
+                                    u.textobj = ln;
+                                    "297";
+                                } else {
+                                    "298";
+                                    vx = int(v.currobj.pos.x)["-"](1);
+                                    "299";
+                                    vy = int(v.currobj.pos.y)["-"](1);
+                                    "300";
+                                    vect = vector(vx, vy, 0);
+                                    "301";
+                                    s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                                    "302";
+                                    ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(u.element), color: color.white, height: 18, opacity: 0, box: false})]);
+                                    "304";
+                                    a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect["-"](v.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                                    "312";
+                                    u.currobj = s;
+                                    "313";
+                                    u.arrparent = a;
+                                    "314";
+                                    u.textobj = ln;
+                                    "316";
+                                }
+                            }
+                            if (ρσ_in(str(int(u.currobj.pos.x)), self.posnode)) {
+                                "317";
+                                (await self.clashHandle(u));
+                                "318";
+                                (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)] = u;
+                                "319";
+                            } else {
+                                "320";
+                                (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(u.currobj.pos.x)), ρσ_expr_temp)] = u;
+                            }
+                            "322";
+                            scene.visible = true;
+                            "323";
+                            w = (await self.getChildren(u));
+                            "324";
+                            var ρσ_Iter4 = w;
+                            ρσ_Iter4 = ((typeof ρσ_Iter4[Symbol.iterator] === "function") ? (ρσ_Iter4 instanceof Map ? ρσ_Iter4.keys() : ρσ_Iter4) : Object.keys(ρσ_Iter4));
+                            for (var ρσ_Index4 of ρσ_Iter4) {
+                                j = ρσ_Index4;
+                                "325";
+                                q1.append(j);
+                            }
+                        }
+                        "326";
+                        (await self.new_Pos_After_Restructure(q1));
+                    }
+                };
+                if (!BinarySearchTree.prototype.new_Pos_After_Restructure.__argnames__) Object.defineProperties(BinarySearchTree.prototype.new_Pos_After_Restructure, {
+                    __argnames__ : {value: ["q"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.insertElement = async function insertElement(e) {
+                    var self = this;
+                    var ρσ_ls, v, _GS_1, u;
+                    "331";
+                    v = self.root;
+                    "332";
+                    _GS_1 = new node;
+                    (await _GS_1.__init__());
+                    u = _GS_1;
+                    "333";
+                    u.element = e;
+                    "335";
+                    if ((self.root === undefined || typeof self.root === "object" && ρσ_equals(self.root, undefined))) {
+                        "336";
+                        self.root = u;
+                        "337";
+                    } else {
+                        "338";
+                        v = (await self.findInsert(e, self.root));
+                        "339";
+                        if (e["<"](v.element)) {
+                            "340";
+                            v.leftchild = u;
+                            "341";
+                        } else {
+                            "342";
+                            v.rightchild = u;
+                        }
+                    }
+                    "343";
+                    u.parent = v;
+                    "344";
+                    return u;
+                };
+                if (!BinarySearchTree.prototype.insertElement.__argnames__) Object.defineProperties(BinarySearchTree.prototype.insertElement, {
+                    __argnames__ : {value: ["e"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.insertElementAVL = async function insertElementAVL(e) {
+                    var self = this;
+                    var ρσ_ls, u, v, vect, s, ln, vx, vy, a;
+                    "349";
+                    u = (await self.insertElement(e));
+                    "350";
+                    v = u.parent;
+                    "351";
+                    if ((v === undefined || typeof v === "object" && ρσ_equals(v, undefined))) {
+                        "352";
+                        vect = vector(0, 0, 0);
+                        "353";
+                        s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                        "354";
+                        ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, height: 18, opacity: 0, box: false})]);
+                        "356";
+                        u.currobj = s;
+                        "357";
+                        u.textobj = ln;
+                        "358";
+                    } else {
+                        "359";
+                        if ((u === v.rightchild || typeof u === "object" && ρσ_equals(u, v.rightchild))) {
+                            "360";
+                            vx = int(v.currobj.pos.x)["+"](1);
+                            "361";
+                            vy = int(v.currobj.pos.y)["-"](1);
+                            "362";
+                            vect = vector(vx, vy, 0);
+                            "363";
+                            s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                            "364";
+                            ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, height: 18, opacity: 0, box: false})]);
+                            "366";
+                            a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect["-"](v.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                            "374";
+                            u.currobj = s;
+                            "375";
+                            u.arrparent = a;
+                            "376";
+                            u.textobj = ln;
+                            "377";
+                        } else {
+                            "378";
+                            vx = int(v.currobj.pos.x)["-"](1);
+                            "379";
+                            vy = int(v.currobj.pos.y)["-"](1);
+                            "380";
+                            vect = vector(vx, vy, 0);
+                            "381";
+                            s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vect, radius: .25, color: node_color})]);
+                            "382";
+                            ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vect, text: str(e), color: color.white, height: 18, opacity: 0, box: false})]);
+                            "384";
+                            a = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: v.currobj.pos, axis: vect["-"](v.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                            "392";
+                            u.currobj = s;
+                            "393";
+                            u.arrparent = a;
+                            "394";
+                            u.textobj = ln;
+                        }
+                    }
+                    "402";
+                    self.pointer.pos = u.currobj.pos;
+                    "403";
+                    (await sleep(1));
+                    "404";
+                    self.pointer.color = color.cyan;
+                    "405";
+                    scene.visible = true;
+                    "407";
+                    (await self.trinode_restructure(u));
+                    "408";
+                    self.pointer.pos = u.currobj.pos;
+                    "409";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.insertElementAVL.__argnames__) Object.defineProperties(BinarySearchTree.prototype.insertElementAVL, {
+                    __argnames__ : {value: ["e"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.insertVisual = async function insertVisual(e) {
+                    var self = this;
+                    var ρσ_ls, u;
+                    "414";
+                    u = (await self.insertElementAVL(e));
+                };
+                if (!BinarySearchTree.prototype.insertVisual.__argnames__) Object.defineProperties(BinarySearchTree.prototype.insertVisual, {
+                    __argnames__ : {value: ["e"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.searchvis = async function searchvis(k, n) {
+                    var self = this;
+                    "418";
+                    (await sleep(1));
+                    "419";
+                    self.pointer.pos = n.currobj.pos;
+                    "420";
+                    if ((n.element === k || typeof n.element === "object" && ρσ_equals(n.element, k))) {
+                        "421";
+                        (await sleep(1));
+                        "422";
+                        self.pointer.color = color.green;
+                        "423";
+                        return;
+                        "424";
+                    } else {
+                        "425";
+                        if (k[">"](n.element) && (n.rightchild !== undefined && (typeof n.rightchild !== "object" || ρσ_not_equals(n.rightchild, undefined)))) {
+                            "426";
+                            (await self.searchvis(k, n.rightchild));
+                            "427";
+                        }
+                        if (k["<"](n.element) && (n.leftchild !== undefined && (typeof n.leftchild !== "object" || ρσ_not_equals(n.leftchild, undefined)))) {
+                            "428";
+                            (await self.searchvis(k, n.leftchild));
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.searchvis.__argnames__) Object.defineProperties(BinarySearchTree.prototype.searchvis, {
+                    __argnames__ : {value: ["k", "n"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.preordervis = async function preordervis(n) {
+                    var self = this;
+                    "431";
+                    (await sleep(1));
+                    "432";
+                    self.pointer.pos = n.currobj.pos;
+                    "433";
+                    ρσ_interpolate_kwargs.call(this, print, (await [n.element].concat([ρσ_desugar_kwargs({end: ", "})])));
+                    "434";
+                    if ((n.leftchild !== undefined && (typeof n.leftchild !== "object" || ρσ_not_equals(n.leftchild, undefined)))) {
+                        "435";
+                        (await self.preordervis(n.leftchild));
+                        "437";
+                    }
+                    if ((n.rightchild !== undefined && (typeof n.rightchild !== "object" || ρσ_not_equals(n.rightchild, undefined)))) {
+                        "438";
+                        (await self.preordervis(n.rightchild));
+                    }
+                    "439";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.preordervis.__argnames__) Object.defineProperties(BinarySearchTree.prototype.preordervis, {
+                    __argnames__ : {value: ["n"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.postordervis = async function postordervis(n) {
+                    var self = this;
+                    "442";
+                    if ((n.leftchild !== undefined && (typeof n.leftchild !== "object" || ρσ_not_equals(n.leftchild, undefined)))) {
+                        "443";
+                        (await self.postordervis(n.leftchild));
+                        "445";
+                    }
+                    if ((n.rightchild !== undefined && (typeof n.rightchild !== "object" || ρσ_not_equals(n.rightchild, undefined)))) {
+                        "446";
+                        (await self.postordervis(n.rightchild));
+                    }
+                    "448";
+                    (await sleep(1));
+                    "449";
+                    self.pointer.pos = n.currobj.pos;
+                    "450";
+                    ρσ_interpolate_kwargs.call(this, print, (await [n.element].concat([ρσ_desugar_kwargs({end: ", "})])));
+                    "451";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.postordervis.__argnames__) Object.defineProperties(BinarySearchTree.prototype.postordervis, {
+                    __argnames__ : {value: ["n"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.inordervis = async function inordervis(n) {
+                    var self = this;
+                    "454";
+                    if ((n.leftchild !== undefined && (typeof n.leftchild !== "object" || ρσ_not_equals(n.leftchild, undefined)))) {
+                        "455";
+                        (await self.inordervis(n.leftchild));
+                    }
+                    "456";
+                    (await sleep(1));
+                    "457";
+                    self.pointer.pos = n.currobj.pos;
+                    "458";
+                    ρσ_interpolate_kwargs.call(this, print, (await [n.element].concat([ρσ_desugar_kwargs({end: ", "})])));
+                    "459";
+                    if ((n.rightchild !== undefined && (typeof n.rightchild !== "object" || ρσ_not_equals(n.rightchild, undefined)))) {
+                        "460";
+                        (await self.inordervis(n.rightchild));
+                    }
+                    "461";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.inordervis.__argnames__) Object.defineProperties(BinarySearchTree.prototype.inordervis, {
+                    __argnames__ : {value: ["n"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.levelordervis = async function levelordervis(n) {
+                    var self = this;
+                    var ρσ_ls, q, x;
+                    "464";
+                    q = ρσ_list_decorate([]);
+                    "465";
+                    q.append(n);
+                    "466";
+                    while (ρσ_not_equals(len(q), 0)) {
+                        "467";
+                        x = q.pypop(0);
+                        "468";
+                        (await sleep(1));
+                        "469";
+                        ρσ_interpolate_kwargs.call(this, print, (await [x.element].concat([ρσ_desugar_kwargs({end: ", "})])));
+                        "470";
+                        self.pointer.pos = x.currobj.pos;
+                        "471";
+                        if ((x.leftchild !== undefined && (typeof x.leftchild !== "object" || ρσ_not_equals(x.leftchild, undefined)))) {
+                            "472";
+                            q.append(x.leftchild);
+                            "473";
+                        }
+                        if ((x.rightchild !== undefined && (typeof x.rightchild !== "object" || ρσ_not_equals(x.rightchild, undefined)))) {
+                            "474";
+                            q.append(x.rightchild);
+                        }
+                    }
+                    "475";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.levelordervis.__argnames__) Object.defineProperties(BinarySearchTree.prototype.levelordervis, {
+                    __argnames__ : {value: ["n"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.clashHandle = async function clashHandle(node) {
+                    var self = this;
+                    var ρσ_ls, flag, nodepos, changed_posnode, i, cx, temp, j;
+                    "478";
+                    flag = 0;
+                    "479";
+                    if ((self.pointer.pos === node.currobj.pos || typeof self.pointer.pos === "object" && ρσ_equals(self.pointer.pos, node.currobj.pos))) {
+                        "480";
+                        flag = 1;
+                    }
+                    "481";
+                    nodepos = ρσ_list_decorate([]);
+                    "482";
+                    changed_posnode = {};
+                    "483";
+                    var ρσ_Iter5 = self.posnode;
+                    ρσ_Iter5 = ((typeof ρσ_Iter5[Symbol.iterator] === "function") ? (ρσ_Iter5 instanceof Map ? ρσ_Iter5.keys() : ρσ_Iter5) : Object.keys(ρσ_Iter5));
+                    for (var ρσ_Index5 of ρσ_Iter5) {
+                        i = ρσ_Index5;
+                        "484";
+                        nodepos.append(int(i));
+                    }
+                    "486";
+                    cx = 0;
+                    "487";
+                    if (node.element["<"](self.root.element)) {
+                        "488";
+                        cx = 1["-u"]();
+                        "489";
+                    } else {
+                        "490";
+                        cx = 1;
+                    }
+                    "492";
+                    var ρσ_Iter6 = nodepos;
+                    ρσ_Iter6 = ((typeof ρσ_Iter6[Symbol.iterator] === "function") ? (ρσ_Iter6 instanceof Map ? ρσ_Iter6.keys() : ρσ_Iter6) : Object.keys(ρσ_Iter6));
+                    for (var ρσ_Index6 of ρσ_Iter6) {
+                        i = ρσ_Index6;
+                        "493";
+                        if ((cx === 1["-u"]() || typeof cx === "object" && ρσ_equals(cx, 1["-u"]())) && i["<="](node.currobj.pos.x) || (cx === 1 || typeof cx === "object" && ρσ_equals(cx, 1)) && i[">="](node.currobj.pos.x)) {
+                            "494";
+                            if (((ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(i), ρσ_expr_temp)] !== self.root && ((await typeof (ρσ_expr_temp = self.posnode))[ρσ_bound_index(str(i), ρσ_expr_temp)] !== "object" || ρσ_not_equals((ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(i), ρσ_expr_temp)], self.root))) && ((i !== node.currobj.pos.x && (typeof i !== "object" || ρσ_not_equals(i, node.currobj.pos.x))) || (cx === 1["-u"]() || typeof cx === "object" && ρσ_equals(cx, 1["-u"]())) && (node.parent !== undefined && (typeof node.parent !== "object" || ρσ_not_equals(node.parent, undefined))) && (node.parent.rightchild !== node && (typeof node.parent.rightchild !== "object" || ρσ_not_equals(node.parent.rightchild, node))) || (cx === 1 || typeof cx === "object" && ρσ_equals(cx, 1)) && (node.parent !== undefined && (typeof node.parent !== "object" || ρσ_not_equals(node.parent, undefined))) && (node.parent.leftchild !== node && (typeof node.parent.leftchild !== "object" || ρσ_not_equals(node.parent.leftchild, node))))) {
+                                "495";
+                                temp = (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(i), ρσ_expr_temp)];
+                                "496";
+                                ρσ_delitem(self.posnode, str(i));
+                                "498";
+                                temp.currobj.pos.x=temp.currobj.pos.x["+"](cx);
+                                "499";
+                                temp.arrparent.pos = temp.parent.currobj.pos;
+                                "501";
+                                temp.arrparent.axis = temp.currobj.pos["-"](temp.parent.currobj.pos);
+                                "502";
+                                temp.textobj.pos = temp.currobj.pos;
+                                "503";
+                                if ((temp.leftchild !== undefined && (typeof temp.leftchild !== "object" || ρσ_not_equals(temp.leftchild, undefined)))) {
+                                    "504";
+                                    temp.leftchild.arrparent.pos = temp.currobj.pos;
+                                    "506";
+                                    temp.leftchild.arrparent.axis = temp.leftchild.currobj.pos["-"](temp.currobj.pos);
+                                    "508";
+                                }
+                                if ((temp.rightchild !== undefined && (typeof temp.rightchild !== "object" || ρσ_not_equals(temp.rightchild, undefined)))) {
+                                    "509";
+                                    temp.rightchild.arrparent.pos = temp.currobj.pos;
+                                    "511";
+                                    temp.rightchild.arrparent.axis = temp.rightchild.currobj.pos["-"](temp.currobj.pos);
+                                }
+                                "513";
+                                changed_posnode[ρσ_bound_index(str(i["+"](cx)), changed_posnode)] = temp;
+                                "515";
+                            }
+                        }
+                    }
+                    if ((cx === 1["-u"]() || typeof cx === "object" && ρσ_equals(cx, 1["-u"]())) && (node.parent !== undefined && (typeof node.parent !== "object" || ρσ_not_equals(node.parent, undefined))) && (node.parent.rightchild === node || typeof node.parent.rightchild === "object" && ρσ_equals(node.parent.rightchild, node)) || (cx === 1 || typeof cx === "object" && ρσ_equals(cx, 1)) && (node.parent !== undefined && (typeof node.parent !== "object" || ρσ_not_equals(node.parent, undefined))) && (node.parent.leftchild === node || typeof node.parent.leftchild === "object" && ρσ_equals(node.parent.leftchild, node))) {
+                        "516";
+                        node.currobj.pos.x=node.currobj.pos.x["+"](cx);
+                        "517";
+                        node.arrparent.pos = node.parent.currobj.pos;
+                        "518";
+                        node.arrparent.axis = node.currobj.pos["-"](node.parent.currobj.pos);
+                        "519";
+                        node.textobj.pos = node.currobj.pos;
+                    }
+                    "521";
+                    var ρσ_Iter7 = changed_posnode;
+                    ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
+                    for (var ρσ_Index7 of ρσ_Iter7) {
+                        j = ρσ_Index7;
+                        "522";
+                        (ρσ_expr_temp = self.posnode)[(typeof j === "number" && j["<"](0)) ? ρσ_expr_temp.length["+"](j) : j] = changed_posnode[(typeof j === "number" && j["<"](0)) ? changed_posnode.length["+"](j) : j];
+                        "524";
+                    }
+                    if ((flag === 1 || typeof flag === "object" && ρσ_equals(flag, 1))) {
+                        "525";
+                        self.pointer.pos = node.currobj.pos;
+                    }
+                };
+                if (!BinarySearchTree.prototype.clashHandle.__argnames__) Object.defineProperties(BinarySearchTree.prototype.clashHandle, {
+                    __argnames__ : {value: ["node"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.inorderTraverse = async function inorderTraverse(v) {
+                    var self = this;
+                    "560";
+                    if ((v !== undefined && (typeof v !== "object" || ρσ_not_equals(v, undefined)))) {
+                        "561";
+                        if ((v.leftchild !== undefined && (typeof v.leftchild !== "object" || ρσ_not_equals(v.leftchild, undefined)))) {
+                            "562";
+                            (await self.inorderTraverse(v.leftchild));
+                        }
+                        "564";
+                        ρσ_interpolate_kwargs.call(this, print, (await [v.element].concat([ρσ_desugar_kwargs({end: " "})])));
+                        "566";
+                        if ((v.rightchild !== undefined && (typeof v.rightchild !== "object" || ρσ_not_equals(v.rightchild, undefined)))) {
+                            "567";
+                            (await self.inorderTraverse(v.rightchild));
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.inorderTraverse.__argnames__) Object.defineProperties(BinarySearchTree.prototype.inorderTraverse, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.returnNextInorder = async function returnNextInorder(v) {
+                    var self = this;
+                    "572";
+                    if ((v.leftchild === undefined || typeof v.leftchild === "object" && ρσ_equals(v.leftchild, undefined))) {
+                        "573";
+                        return v;
+                        "574";
+                    } else {
+                        "575";
+                        return (await self.returnNextInorder(v.leftchild));
+                    }
+                    "576";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.returnNextInorder.__argnames__) Object.defineProperties(BinarySearchTree.prototype.returnNextInorder, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.removeElement = async function removeElement(e) {
+                    var self = this;
+                    var ρσ_ls, t, l, r, p, child, x, tempele, temp;
+                    "581";
+                    t = (await self.findDelete(e, self.root));
+                    "583";
+                    print("Deleting element ", e);
+                    "584";
+                    self.pointer.pos = vector(0, 0, 0);
+                    "585";
+                    self.pointer.color = color.red;
+                    "586";
+                    l = t.leftchild;
+                    "587";
+                    r = t.rightchild;
+                    "588";
+                    p = t.parent;
+                    "589";
+                    child = 0;
+                    "590";
+                    if ((l !== undefined && (typeof l !== "object" || ρσ_not_equals(l, undefined)))) {
+                        "591";
+                        child=child["+"](1);
+                        "592";
+                    }
+                    if ((r !== undefined && (typeof r !== "object" || ρσ_not_equals(r, undefined)))) {
+                        "593";
+                        child=child["+"](1);
+                        "594";
+                    }
+                    if ((await self.isExternal(t))) {
+                        "595";
+                        print("Deleting external node");
+                        "596";
+                        if ((p === undefined || typeof p === "object" && ρσ_equals(p, undefined))) {
+                            "597";
+                            self.root = undefined;
+                            "599";
+                        } else {
+                            "600";
+                            if ((t === p.leftchild || typeof t === "object" && ρσ_equals(t, p.leftchild))) {
+                                "601";
+                                p.leftchild = undefined;
+                                "602";
+                            } else {
+                                "603";
+                                p.rightchild = undefined;
+                            }
+                        }
+                        "604";
+                        x = int(t.currobj.pos.x);
+                        "605";
+                        t.currobj.visible = false;
+                        "606";
+                        if ((t.arrparent !== undefined && (typeof t.arrparent !== "object" || ρσ_not_equals(t.arrparent, undefined)))) {
+                            "607";
+                            t.arrparent.visible = false;
+                        }
+                        "608";
+                        t.textobj.visible = false;
+                        "609";
+                        ρσ_delitem(self.posnode, str(x));
+                        "610";
+                        (await self.restructureDel(t.parent));
+                        "612";
+                        t = undefined;
+                        "613";
+                    } else if ((child === 1 || typeof child === "object" && ρσ_equals(child, 1))) {
+                        "614";
+                        if ((l !== undefined && (typeof l !== "object" || ρσ_not_equals(l, undefined)))) {
+                            "615";
+                            tempele = l.element;
+                            "616";
+                        } else {
+                            "617";
+                            tempele = r.element;
+                        }
+                        "618";
+                        print("Deleting node with 1 child");
+                        "620";
+                        (await self.removeElement(tempele));
+                        "622";
+                        t.element = tempele;
+                        "623";
+                        t.textobj.text = str(tempele);
+                        "624";
+                    } else {
+                        "625";
+                        temp = (await self.returnNextInorder(t.rightchild));
+                        "626";
+                        tempele = temp.element;
+                        "627";
+                        print("Deleting node with 2 children");
+                        "629";
+                        (await self.removeElement(tempele));
+                        "631";
+                        t.element = tempele;
+                        "632";
+                        t.textobj.text = str(tempele);
+                    }
+                    "633";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.removeElement.__argnames__) Object.defineProperties(BinarySearchTree.prototype.removeElement, {
+                    __argnames__ : {value: ["e"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.repositionAfterDel = async function repositionAfterDel() {
+                    var self = this;
+                    var ρσ_ls, nodepos, i, o, rc, j, lc;
+                    "637";
+                    nodepos = ρσ_list_decorate([]);
+                    "638";
+                    var ρσ_Iter8 = self.posnode;
+                    ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
+                    for (var ρσ_Index8 of ρσ_Iter8) {
+                        i = ρσ_Index8;
+                        "639";
+                        nodepos.append(int(i));
+                    }
+                    "641";
+                    (await nodepos.pysort());
+                    "642";
+                    var ρσ_Iter9 = range(1, len(nodepos));
+                    ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
+                    for (var ρσ_Index9 of ρσ_Iter9) {
+                        i = ρσ_Index9;
+                        "643";
+                        if (ρσ_not_equals(nodepos[(typeof i === "number" && i["<"](0)) ? nodepos.length["+"](i) : i]["-"](nodepos[ρσ_bound_index(i["-"](1), nodepos)]), 1)) {
+                            "644";
+                            if (nodepos[ρσ_bound_index(i["-"](1), nodepos)]["<"](0)) {
+                                "645";
+                                for (var ρσ_Index10 = i["-"](1); ρσ_Index10[">"](1["-u"]()); ρσ_Index10=ρσ_Index10["-"](1)) {
+                                    j = ρσ_Index10;
+                                    "646";
+                                    o = (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(nodepos[(typeof j === "number" && j["<"](0)) ? nodepos.length["+"](j) : j]), ρσ_expr_temp)];
+                                    "647";
+                                    ρσ_delitem(self.posnode, str(int(o.currobj.pos.x)));
+                                    "648";
+                                    o.currobj.pos.x = int(o.currobj.pos.x)["+"](1);
+                                    "649";
+                                    if ((o.parent !== undefined && (typeof o.parent !== "object" || ρσ_not_equals(o.parent, undefined)))) {
+                                        "650";
+                                        o.arrparent.pos = o.parent.currobj.pos;
+                                        "651";
+                                        o.arrparent.axis = o.currobj.pos["-"](o.parent.currobj.pos);
+                                    }
+                                    "652";
+                                    o.textobj.pos = o.currobj.pos;
+                                    "653";
+                                    (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(o.currobj.pos.x)), ρσ_expr_temp)] = o;
+                                    "654";
+                                    if ((o.rightchild !== undefined && (typeof o.rightchild !== "object" || ρσ_not_equals(o.rightchild, undefined)))) {
+                                        "655";
+                                        rc = o.rightchild;
+                                        "656";
+                                        rc.arrparent.pos = o.currobj.pos;
+                                        "657";
+                                        rc.arrparent.axis = rc.currobj.pos["-"](o.currobj.pos);
+                                        "658";
+                                        o.rightchild = rc;
+                                        "660";
+                                    }
+                                }
+                            } else if (nodepos[(typeof i === "number" && i["<"](0)) ? nodepos.length["+"](i) : i][">"](0)) {
+                                "661";
+                                var ρσ_Iter11 = range(i, len(nodepos));
+                                ρσ_Iter11 = ((typeof ρσ_Iter11[Symbol.iterator] === "function") ? (ρσ_Iter11 instanceof Map ? ρσ_Iter11.keys() : ρσ_Iter11) : Object.keys(ρσ_Iter11));
+                                for (var ρσ_Index11 of ρσ_Iter11) {
+                                    j = ρσ_Index11;
+                                    "662";
+                                    o = (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(nodepos[(typeof j === "number" && j["<"](0)) ? nodepos.length["+"](j) : j]), ρσ_expr_temp)];
+                                    "663";
+                                    ρσ_delitem(self.posnode, str(int(o.currobj.pos.x)));
+                                    "664";
+                                    o.currobj.pos.x = int(o.currobj.pos.x)["-"](1);
+                                    "665";
+                                    if ((o.parent !== undefined && (typeof o.parent !== "object" || ρσ_not_equals(o.parent, undefined)))) {
+                                        "666";
+                                        o.arrparent.pos = o.parent.currobj.pos;
+                                        "667";
+                                        o.arrparent.axis = o.currobj.pos["-"](o.parent.currobj.pos);
+                                    }
+                                    "668";
+                                    o.textobj.pos = o.currobj.pos;
+                                    "669";
+                                    (ρσ_expr_temp = self.posnode)[ρσ_bound_index(str(int(o.currobj.pos.x)), ρσ_expr_temp)] = o;
+                                    "670";
+                                    if ((o.leftchild !== undefined && (typeof o.leftchild !== "object" || ρσ_not_equals(o.leftchild, undefined)))) {
+                                        "671";
+                                        lc = o.leftchild;
+                                        "672";
+                                        lc.arrparent.pos = o.currobj.pos;
+                                        "673";
+                                        lc.arrparent.axis = lc.currobj.pos["-"](o.currobj.pos);
+                                        "674";
+                                        o.leftchild = lc;
+                                    }
+                                }
+                            }
+                            "675";
+                            break;
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.repositionAfterDel.__module__) Object.defineProperties(BinarySearchTree.prototype.repositionAfterDel, {
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.removeElementAVL = async function removeElementAVL(e) {
+                    var self = this;
+                    var ρσ_ls, t;
+                    "680";
+                    t = (await self.findElement(e, self.root));
+                    "681";
+                    if ((t !== undefined && (typeof t !== "object" || ρσ_not_equals(t, undefined)))) {
+                        "682";
+                        (await self.removeElement(e));
+                        "683";
+                        (await self.repositionAfterDel());
+                        "684";
+                        return 1;
+                        "685";
+                    } else {
+                        "686";
+                        return 0;
+                    }
+                };
+                if (!BinarySearchTree.prototype.removeElementAVL.__argnames__) Object.defineProperties(BinarySearchTree.prototype.removeElementAVL, {
+                    __argnames__ : {value: ["e"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.adtCreate = async function adtCreate(items) {
+                    var self = this;
+                    var ρσ_ls, l, mid, lr, rr, _GS_1, u, lchild, rchild;
+                    "691";
+                    l = len(items);
+                    "692";
+                    if ((l === 0 || typeof l === "object" && ρσ_equals(l, 0))) {
+                        "693";
+                        return;
+                    }
+                    "695";
+                    mid = (await Math.floor(l["/"](2)));
+                    "697";
+                    lr = items.slice(0, mid);
+                    "698";
+                    rr = items.slice(mid["+"](1));
+                    "699";
+                    _GS_1 = new node;
+                    (await _GS_1.__init__());
+                    u = _GS_1;
+                    "700";
+                    u.element = items[(typeof mid === "number" && mid["<"](0)) ? items.length["+"](mid) : mid];
+                    "701";
+                    if (l[">"](1)) {
+                        "702";
+                        lchild = (await self.adtCreate(lr));
+                        "703";
+                        rchild = (await self.adtCreate(rr));
+                        "704";
+                        u.leftchild = lchild;
+                        "705";
+                        u.rightchild = rchild;
+                        "706";
+                        if ((lchild !== undefined && (typeof lchild !== "object" || ρσ_not_equals(lchild, undefined)))) {
+                            "707";
+                            lchild.parent = u;
+                            "708";
+                        }
+                        if ((rchild !== undefined && (typeof rchild !== "object" || ρσ_not_equals(rchild, undefined)))) {
+                            "709";
+                            rchild.parent = u;
+                            "710";
+                        }
+                    } else {
+                        "711";
+                        u.leftchild = undefined;
+                        "712";
+                        u.rightchild = undefined;
+                    }
+                    "713";
+                    self.root = u;
+                    "714";
+                    return u;
+                };
+                if (!BinarySearchTree.prototype.adtCreate.__argnames__) Object.defineProperties(BinarySearchTree.prototype.adtCreate, {
+                    __argnames__ : {value: ["items"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.createTree = async function createTree(items) {
+                    var self = this;
+                    var ρσ_ls, l, mid, lr, rr, u, lchild, rchild, y, j;
+                    "719";
+                    l = len(items);
+                    "720";
+                    if ((l === 0 || typeof l === "object" && ρσ_equals(l, 0))) {
+                        "721";
+                        return;
+                    }
+                    "723";
+                    mid = (await Math.floor(l["/"](2)));
+                    "725";
+                    lr = items.slice(0, mid);
+                    "726";
+                    rr = items.slice(mid["+"](1));
+                    "727";
+                    u = items[(typeof mid === "number" && mid["<"](0)) ? items.length["+"](mid) : mid];
+                    "728";
+                    if (l[">"](1)) {
+                        "729";
+                        lchild = (await self.createTree(lr));
+                        "730";
+                        rchild = (await self.createTree(rr));
+                        "731";
+                        u.leftchild = lchild;
+                        "732";
+                        u.rightchild = rchild;
+                        "733";
+                        if ((lchild !== undefined && (typeof lchild !== "object" || ρσ_not_equals(lchild, undefined))) || (rchild !== undefined && (typeof rchild !== "object" || ρσ_not_equals(rchild, undefined)))) {
+                            "734";
+                            y = u.currobj.pos.y;
+                            "735";
+                            if ((lchild !== undefined && (typeof lchild !== "object" || ρσ_not_equals(lchild, undefined)))) {
+                                "736";
+                                lchild.parent = u;
+                                "737";
+                                if (lchild.currobj.pos.y[">"](y)) {
+                                    "738";
+                                    y = lchild.currobj.pos.y;
+                                    "740";
+                                }
+                            }
+                            if ((rchild !== undefined && (typeof rchild !== "object" || ρσ_not_equals(rchild, undefined)))) {
+                                "741";
+                                rchild.parent = u;
+                                "742";
+                                if (rchild.currobj.pos.y[">"](y)) {
+                                    "743";
+                                    y = rchild.currobj.pos.y;
+                                }
+                            }
+                            "744";
+                            j = 0;
+                            "745";
+                            u.currobj.pos.y = y;
+                            "746";
+                            u.textobj.pos.y = y;
+                            "747";
+                            while (j["<"](2)) {
+                                "748";
+                                (await sleep(1));
+                                "749";
+                                u.currobj.pos.y=u.currobj.pos.y["+"](1);
+                                "750";
+                                u.textobj.pos.y=u.textobj.pos.y["+"](1);
+                                "751";
+                                j=j["+"](1);
+                                "753";
+                            }
+                            if ((lchild !== undefined && (typeof lchild !== "object" || ρσ_not_equals(lchild, undefined)))) {
+                                "754";
+                                lchild.currobj.pos.y = y;
+                                "755";
+                                lchild.textobj.pos.y = y;
+                                "756";
+                                lchild.arrparent = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: u.currobj.pos, axis: lchild.currobj.pos["-"](u.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                                "761";
+                            }
+                            if ((rchild !== undefined && (typeof rchild !== "object" || ρσ_not_equals(rchild, undefined)))) {
+                                "762";
+                                rchild.currobj.pos.y = y;
+                                "763";
+                                rchild.textobj.pos.y = y;
+                                "764";
+                                rchild.arrparent = ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: u.currobj.pos, axis: rchild.currobj.pos["-"](u.currobj.pos), shaftwidth: u.arrShaftWidth, headwidth: u.arrHeadWidth, headlength: u.arrHeadLength, color: arr_color})]);
+                                "769";
+                            }
+                        }
+                    } else {
+                        "771";
+                        u.leftchild = undefined;
+                        "772";
+                        u.rightchild = undefined;
+                    }
+                    "773";
+                    self.root = u;
+                    "774";
+                    return u;
+                };
+                if (!BinarySearchTree.prototype.createTree.__argnames__) Object.defineProperties(BinarySearchTree.prototype.createTree, {
+                    __argnames__ : {value: ["items"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.isExternal = async function isExternal(curnode) {
+                    var self = this;
+                    "777";
+                    if ((curnode.leftchild === undefined || typeof curnode.leftchild === "object" && ρσ_equals(curnode.leftchild, undefined)) && (curnode.rightchild === undefined || typeof curnode.rightchild === "object" && ρσ_equals(curnode.rightchild, undefined))) {
+                        "778";
+                        return true;
+                        "779";
+                    } else {
+                        "780";
+                        return false;
+                    }
+                };
+                if (!BinarySearchTree.prototype.isExternal.__argnames__) Object.defineProperties(BinarySearchTree.prototype.isExternal, {
+                    __argnames__ : {value: ["curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.getChildren = async function getChildren(curnode) {
+                    var self = this;
+                    var ρσ_ls, children;
+                    "783";
+                    children = ρσ_list_decorate([]);
+                    "785";
+                    if ((curnode.leftchild !== undefined && (typeof curnode.leftchild !== "object" || ρσ_not_equals(curnode.leftchild, undefined)))) {
+                        "786";
+                        children.append(curnode.leftchild);
+                        "788";
+                    }
+                    if ((curnode.rightchild !== undefined && (typeof curnode.rightchild !== "object" || ρσ_not_equals(curnode.rightchild, undefined)))) {
+                        "789";
+                        children.append(curnode.rightchild);
+                    }
+                    "790";
+                    return children;
+                };
+                if (!BinarySearchTree.prototype.getChildren.__argnames__) Object.defineProperties(BinarySearchTree.prototype.getChildren, {
+                    __argnames__ : {value: ["curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.preorderTraverse = async function preorderTraverse(v) {
+                    var self = this;
+                    var ρσ_ls, curnode;
+                    "793";
+                    curnode = v;
+                    "795";
+                    ρσ_interpolate_kwargs.call(this, print, (await [curnode.element].concat([ρσ_desugar_kwargs({end: " "})])));
+                    "797";
+                    if ((curnode.leftchild !== undefined && (typeof curnode.leftchild !== "object" || ρσ_not_equals(curnode.leftchild, undefined)))) {
+                        "798";
+                        (await self.preorderTraverse(curnode.leftchild));
+                        "799";
+                    }
+                    if ((curnode.rightchild !== undefined && (typeof curnode.rightchild !== "object" || ρσ_not_equals(curnode.rightchild, undefined)))) {
+                        "800";
+                        (await self.preorderTraverse(curnode.rightchild));
+                    }
+                    "801";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.preorderTraverse.__argnames__) Object.defineProperties(BinarySearchTree.prototype.preorderTraverse, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.postorderTraverse = async function postorderTraverse(v) {
+                    var self = this;
+                    var ρσ_ls, curnode;
+                    "804";
+                    curnode = v;
+                    "805";
+                    if ((curnode.leftchild !== undefined && (typeof curnode.leftchild !== "object" || ρσ_not_equals(curnode.leftchild, undefined)))) {
+                        "806";
+                        (await self.postorderTraverse(curnode.leftchild));
+                        "807";
+                    }
+                    if ((curnode.rightchild !== undefined && (typeof curnode.rightchild !== "object" || ρσ_not_equals(curnode.rightchild, undefined)))) {
+                        "808";
+                        (await self.postorderTraverse(curnode.rightchild));
+                    }
+                    "810";
+                    ρσ_interpolate_kwargs.call(this, print, (await [curnode.element].concat([ρσ_desugar_kwargs({end: " "})])));
+                    "812";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.postorderTraverse.__argnames__) Object.defineProperties(BinarySearchTree.prototype.postorderTraverse, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findDepthIter = async function findDepthIter(v) {
+                    var self = this;
+                    "815";
+                    if ((v === self.root || typeof v === "object" && ρσ_equals(v, self.root))) {
+                        "816";
+                        return 0;
+                        "817";
+                    } else {
+                        "818";
+                        return 1["+"]((await self.findDepthIter(v.parent)));
+                    }
+                };
+                if (!BinarySearchTree.prototype.findDepthIter.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findDepthIter, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findDepth = async function findDepth(v) {
+                    var self = this;
+                    "821";
+                    return (await self.findDepthIter((await self.findElement(v.element, self.root))));
+                };
+                if (!BinarySearchTree.prototype.findDepth.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findDepth, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findHeightIter = async function findHeightIter(v) {
+                    var self = this;
+                    var ρσ_ls, h;
+                    "825";
+                    if ((v === undefined || typeof v === "object" && ρσ_equals(v, undefined))) {
+                        "826";
+                        return 0;
+                        "827";
+                    }
+                    if ((v !== undefined && (typeof v !== "object" || ρσ_not_equals(v, undefined)))) {
+                        "828";
+                        if ((await self.isExternal(v))) {
+                            "829";
+                            return 1;
+                            "830";
+                        } else {
+                            "831";
+                            h = 0;
+                            "832";
+                            if ((v.leftchild !== undefined && (typeof v.leftchild !== "object" || ρσ_not_equals(v.leftchild, undefined)))) {
+                                "833";
+                                h = max(h, (await self.findHeightIter(v.leftchild)));
+                                "834";
+                            }
+                            if ((v.rightchild !== undefined && (typeof v.rightchild !== "object" || ρσ_not_equals(v.rightchild, undefined)))) {
+                                "835";
+                                h = max(h, (await self.findHeightIter(v.rightchild)));
+                            }
+                            "836";
+                            return 1["+"](h);
+                        }
+                    }
+                };
+                if (!BinarySearchTree.prototype.findHeightIter.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findHeightIter, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.findHeight = async function findHeight(v) {
+                    var self = this;
+                    var ρσ_ls, u;
+                    "839";
+                    if ((v === undefined || typeof v === "object" && ρσ_equals(v, undefined))) {
+                        "840";
+                        return 0;
+                    }
+                    "842";
+                    u = (await self.findElement(v.element, self.root));
+                    "843";
+                    if ((u === undefined || typeof u === "object" && ρσ_equals(u, undefined))) {
+                        "844";
+                        return 0;
+                        "845";
+                    }
+                    if ((u !== undefined && (typeof u !== "object" || ρσ_not_equals(u, undefined)))) {
+                        "846";
+                        return (await self.findHeightIter(u));
+                    }
+                };
+                if (!BinarySearchTree.prototype.findHeight.__argnames__) Object.defineProperties(BinarySearchTree.prototype.findHeight, {
+                    __argnames__ : {value: ["v"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.preOrderHideTraverse = async function preOrderHideTraverse(curnode) {
+                    var self = this;
+                    "849";
+                    if ((curnode !== undefined && (typeof curnode !== "object" || ρσ_not_equals(curnode, undefined)))) {
+                        "850";
+                        curnode.textobj.visible = false;
+                        "851";
+                        curnode.currobj.visible = false;
+                        "852";
+                        if ((curnode.arrparent !== undefined && (typeof curnode.arrparent !== "object" || ρσ_not_equals(curnode.arrparent, undefined)))) {
+                            "853";
+                            curnode.arrparent.visible = false;
+                            "854";
+                        }
+                        if ((curnode.leftchild !== undefined && (typeof curnode.leftchild !== "object" || ρσ_not_equals(curnode.leftchild, undefined)))) {
+                            "855";
+                            (await self.preOrderHideTraverse(curnode.leftchild));
+                            "856";
+                        }
+                        if ((curnode.rightchild !== undefined && (typeof curnode.rightchild !== "object" || ρσ_not_equals(curnode.rightchild, undefined)))) {
+                            "857";
+                            (await self.preOrderHideTraverse(curnode.rightchild));
+                        }
+                    }
+                    "858";
+                    return;
+                };
+                if (!BinarySearchTree.prototype.preOrderHideTraverse.__argnames__) Object.defineProperties(BinarySearchTree.prototype.preOrderHideTraverse, {
+                    __argnames__ : {value: ["curnode"]},
+                    __module__ : {value: null}
+                });
+                BinarySearchTree.prototype.__repr__ = async function __repr__() {
+                            return "<"["+"](__name__)["+"](".")["+"](this.constructor.name)["+"](" #")["+"](this.ρσ_object_id)["+"](">");
+                };
+                BinarySearchTree.prototype.__str__ = async function __str__() {
+                    return (await this.__repr__());
+                };
+                Object.defineProperty(BinarySearchTree.prototype, "__bases__", {value: []});
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            
+                "861";
+                _GS_1 = new BinarySearchTree;
+                (await _GS_1.__init__());
+                bst1 = _GS_1;
+                "862";
+                _GS_1 = new BinarySearchTree;
+                (await _GS_1.__init__());
+                bst2 = _GS_1;
+                "863";
+                bst2.pointer = ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: vector(0, 0, 0), axis: vector(0, 0, 1), radius: .26, color: color.purple, thickness: .1})]);
+                "865";
+                bst2.pointer.visible = false;
+                "868";
+                async function testmain(op) {
+                    var ρσ_ls, l, x, objlist, y, _GS_1, n, s, ln, i, cond;
+                    "870";
+                    if ((op.index === 1 || typeof op.index === "object" && ρσ_equals(op.index, 1))) {
+                        "871";
+                        op.index = 0;
+                        "872";
+                        print("Visualising - Create AVL tree");
+                        "873";
+                        (await bst1.preOrderHideTraverse(bst1.root));
+                        "874";
+                        if ((bst2.root !== undefined && (typeof bst2.root !== "object" || ρσ_not_equals(bst2.root, undefined)))) {
+                            "875";
+                            (await bst2.preOrderHideTraverse(bst2.root));
+                        }
+                        "876";
+                        (await get_input("Enter elements to build an AVL tree: "));
+                        "877";
+                        (await wait_for_input());
+                        "878";
+                        l = list((await map(int, (await inp_str.split(" ")))));
+                        "879";
+                        x = (await Math.floor(len(l)["/"](2)));
+                        "880";
+                        x=x["*"](1["-u"]());
+                        "881";
+                        (await l.pysort());
+                        "882";
+                        objlist = ρσ_list_decorate([]);
+                        "883";
+                        y = x;
+                        "884";
+                        var ρσ_Iter12 = l;
+                        ρσ_Iter12 = ((typeof ρσ_Iter12[Symbol.iterator] === "function") ? (ρσ_Iter12 instanceof Map ? ρσ_Iter12.keys() : ρσ_Iter12) : Object.keys(ρσ_Iter12));
+                        for (var ρσ_Index12 of ρσ_Iter12) {
+                            i = ρσ_Index12;
+                            "885";
+                            (await sleep(1));
+                            "886";
+                            _GS_1 = new node;
+                            (await _GS_1.__init__());
+                            n = _GS_1;
+                            "887";
+                            n.element = i;
+                            "888";
+                            s = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vector(x, y, 0), radius: .25, color: node_color})]);
+                            "889";
+                            ln = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vector(x, y, 0), text: str(i), color: color.white, opacity: 0, box: false})]);
+                            "891";
+                            n.currobj = s;
+                            "892";
+                            n.textobj = ln;
+                            "894";
+                            x=x["+"](1);
+                            "896";
+                            objlist.append(n);
+                        }
+                        "898";
+                        (await bst1.createTree(objlist));
+                        "901";
+                    } else if ((op.index === 2 || typeof op.index === "object" && ρσ_equals(op.index, 2))) {
+                        "902";
+                        op.index = 0;
+                        "903";
+                        (await bst1.preOrderHideTraverse(bst1.root));
+                        "904";
+                        if ((bst2.root !== undefined && (typeof bst2.root !== "object" || ρσ_not_equals(bst2.root, undefined)))) {
+                            "905";
+                            bst2.pointer.visible = true;
+                        }
+                        "906";
+                        print("\nVisualising - Insertion");
+                        "907";
+                        bst2.pointer.pos = vector(0, 0, 0);
+                        "908";
+                        bst2.pointer.color = color.red;
+                        "909";
+                        (await get_input("Enter element to be inserted: "));
+                        "910";
+                        (await wait_for_input());
+                        "911";
+                        i = int(inp_str);
+                        "912";
+                        (await bst2.insertVisual(i));
+                        "913";
+                        bst2.pointer.visible = true;
+                        "914";
+                    } else if ((op.index === 3 || typeof op.index === "object" && ρσ_equals(op.index, 3))) {
+                        "915";
+                        op.index = 0;
+                        "916";
+                        print("Visualising - Searching");
+                        "917";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "918";
+                            print("Tree does not exist.");
+                            "919";
+                        } else {
+                            "920";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "921";
+                            bst2.pointer.color = color.red;
+                            "922";
+                            (await get_input("Enter element to be searched: "));
+                            "923";
+                            (await wait_for_input());
+                            "924";
+                            i = int(inp_str);
+                            "925";
+                            (await bst2.searchvis(i, bst2.root));
+                            "926";
+                            if ((bst2.pointer.color === color.red || typeof bst2.pointer.color === "object" && ρσ_equals(bst2.pointer.color, color.red))) {
+                                "927";
+                                print("Element", i, "does not exist in tree.");
+                                "928";
+                            } else {
+                                "929";
+                                print("Element found.");
+                                "930";
+                            }
+                        }
+                    } else if ((op.index === 4 || typeof op.index === "object" && ρσ_equals(op.index, 4))) {
+                        "931";
+                        op.index = 0;
+                        "932";
+                        print("Visualising - Deletion");
+                        "933";
+                        (await get_input("Enter element to be deleted: "));
+                        "934";
+                        (await wait_for_input());
+                        "935";
+                        i = int(inp_str);
+                        "936";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "937";
+                            print("Tree does not exist.");
+                            "938";
+                        } else {
+                            "939";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "940";
+                            bst2.pointer.color = color.red;
+                            "941";
+                            cond = (await bst2.removeElementAVL(i));
+                            "942";
+                            if ((cond === 1 || typeof cond === "object" && ρσ_equals(cond, 1))) {
+                                "943";
+                                print("Element", i, "deleted.");
+                                "944";
+                            } else {
+                                "945";
+                                print("Element does not exist.");
+                                "947";
+                            }
+                        }
+                    } else if ((op.index === 5 || typeof op.index === "object" && ρσ_equals(op.index, 5))) {
+                        "948";
+                        op.index = 0;
+                        "949";
+                        print("Visualising - Preorder Traversal");
+                        "950";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "951";
+                            print("Tree does not exist.");
+                            "952";
+                        } else {
+                            "953";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "954";
+                            bst2.pointer.color = color.yellow;
+                            "955";
+                            (await bst2.preordervis(bst2.root));
+                            "956";
+                        }
+                    } else if ((op.index === 6 || typeof op.index === "object" && ρσ_equals(op.index, 6))) {
+                        "957";
+                        op.index = 0;
+                        "958";
+                        print("Visualising - Postorder Traversal");
+                        "959";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "960";
+                            print("Tree does not exist.");
+                            "961";
+                        } else {
+                            "962";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "963";
+                            bst2.pointer.color = color.yellow;
+                            "964";
+                            (await bst2.postordervis(bst2.root));
+                            "965";
+                        }
+                    } else if ((op.index === 7 || typeof op.index === "object" && ρσ_equals(op.index, 7))) {
+                        "966";
+                        op.index = 0;
+                        "967";
+                        print("Visualising - Inorder Traversal");
+                        "968";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "969";
+                            print("Tree does not exist.");
+                            "970";
+                        } else {
+                            "971";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "972";
+                            bst2.pointer.color = color.yellow;
+                            "973";
+                            (await bst2.inordervis(bst2.root));
+                            "974";
+                        }
+                    } else if ((op.index === 8 || typeof op.index === "object" && ρσ_equals(op.index, 8))) {
+                        "975";
+                        op.index = 0;
+                        "976";
+                        print("Visualising - Level Order Traversal");
+                        "977";
+                        if ((bst2.root === undefined || typeof bst2.root === "object" && ρσ_equals(bst2.root, undefined))) {
+                            "978";
+                            print("Tree does not exist.");
+                            "979";
+                        } else {
+                            "980";
+                            bst2.pointer.pos = vector(0, 0, 0);
+                            "981";
+                            bst2.pointer.color = color.yellow;
+                            "982";
+                            (await bst2.levelordervis(bst2.root));
+                        }
+                    }
+                    "987";
+                    (await sleep(1));
+                    "988";
+                    print();
+                    "992";
+                };
+                if (!testmain.__argnames__) Object.defineProperties(testmain, {
+                    __argnames__ : {value: ["op"]},
+                    __module__ : {value: null}
+                });
+            
+                if ((__name__ === "__main__" || typeof __name__ === "object" && ρσ_equals(__name__, "__main__"))) {
+                    "993";
+                    scene.background = bg_color;
+                    "995";
+                    ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: ρσ_list_decorate([ "Select Option", "Create AVL Tree", "Insert", "Search", "Delete", "Preorder Traversal", "Postorder Traversal", "Inorder Traversal", "Level Order Traversal" ]), bind: testmain})]);
+                    "997";
+                    scene.append_to_caption("\n\n");
+                }
+            };
+            if (!__main__.__module__) Object.defineProperties(__main__, {
+                __module__ : {value: null}
+            });
+            
+            ;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+            // END JAVASCRIPT
+            
+            //--><!]]></script>
+            </div>
+        
+    
+
+    <!--<div class="third">
+
+        THIRDDDDDDDDDDDDDDD-->
+        
+             <!--</div>-->
+</div>
+
+</body>
+</html>
