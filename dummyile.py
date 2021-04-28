@@ -518,37 +518,6 @@ class BinarySearchTree:
         if(flag == 1):
             self.pointer.pos = node.currobj.pos
 
-#    def clashInorderTraverse(self, currnode, cx):
-#        if cx == -1:                        #LPR Left subtree extension
-#            if currnode != None:
-#                if currnode.leftchild != None:22
-#                    self.clashInorderTraverse(currnode.leftchild, cx)
-#
-#                del self.posnode[currnode.currobj.pos.x]
-#                currnode.currobj.pos += vector(cx, 0, 0)
-#                currnode.arrparent.pos = currnode.currobj.pos
-#                currnode.arrparent.axis = currnode.currobj.pos - currnode.parent.currobj.pos
-#                currnode.textobj.pos = currnode.currobj.pos
-#                self.posnode[currnode.currobj.pos.x] = currnode
-#
-#                if currnode.rightchild != None:
-#                    self.clashInorderTraverse(currnode.rightchild, cx)
-#
-#        else:                                #RPL Right subtree extension
-#            if currnode != None:
-#                if currnode.rightchild != None:
-#                    self.clashInorderTraverse(currnode.rightchild, cx)
-#
-#                del self.posnode[currnode.currobj.pos.x]
-#                currnode.currobj.pos += vector(cx, 0, 0)
-#                currnode.arrparent.pos = currnode.currobj.pos
-#                currnode.arrparent.axis = currnode.currobj.pos - currnode.parent.currobj.pos
-#                currnode.textobj.pos = currnode.currobj.pos
-#                self.posnode[currnode.currobj.pos.x] = currnode
-#
-#                if currnode.leftchild != None:
-#                    self.clashInorderTraverse(currnode.leftchild, cx)
-#
 
     def inorderTraverse(self, v):
         if v != None:
@@ -596,7 +565,8 @@ class BinarySearchTree:
                     p.rightchild = None
             x = int(t.currobj.pos.x)
             t.currobj.visible = False
-            t.arrparent.visible = False
+            if(t.arrparent != None):
+                t.arrparent.visible = False
             t.textobj.visible = False
             del self.posnode[x]
             print("after deletion", self.posnode.keys())

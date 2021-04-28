@@ -1,4 +1,4 @@
-GlowScript 3.1 VPython
+# GlowScript 3.1 VPython
 
 from vpython import *
 
