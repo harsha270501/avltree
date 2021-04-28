@@ -27,7 +27,6 @@ def wait_for_input():
     while inp_str == "":
         rate(100)
 
-
 class node:
 
     def __init__(self):
