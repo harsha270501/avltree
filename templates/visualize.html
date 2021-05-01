@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Visualize</title>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
     <script src="http://www.skulpt.org/js/skulpt.min.js" type="text/javascript"></script> 
@@ -53,16 +53,18 @@ background-color: pink;
 <body>
     <div class="sidenav">
         <div class="underlinepink">
-            <h3 style="color: #002C30;"><strong><em>Operations:</em></strong> </h3>
+            <h3 style="color:white;"><strong><em>Operations:</em></strong> </h3>
             <!--<h3>OPERATIONS</h3>-->
         </div>
     
        
         <br>
-        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate" class="btn btn-default" style="background-color:#0d7377;" style="color: seagreen;">Create</button></a>
-        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLonginsert" class="btn btn-default" style="background-color:#0d7377;">Insert</button></a>
-        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongdelete" class="btn btn-default" style="background-color:#0d7377;" >Delete</button></a>
-        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongsearch" class="btn btn-default" style="background-color:#0d7377;" >Search</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate"class="btn btn-secondary"style="background-color:#0d7377;"> Create</button></a>
+        <!--<a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate" class="btn btn-default" style="background-color:#0d7377;">Create</button></a>-->
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate"class="btn btn-secondary"style="background-color:#0d7377;"> Insert</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate"class="btn btn-secondary"style="background-color:#0d7377;"> Delete</button></a>
+        <a href="#"><button type="button" data-toggle="modal" data-target="#exampleModalLongcreate"class="btn btn-secondary"style="background-color:#0d7377;"> Search</button></a>
+        
         <!--<a href="#" onclick="return show('Insert');">Insert</a>-->
         <!--<a href="#"><button onclick="myFunction()" >Insert</button></a>
         <a href="#"onclick="return show('Delete');">Delete</a>
@@ -82,7 +84,7 @@ background-color: pink;
           <p>This AVL tree has been constructed using bottom up approach for a balanced BST. The bottom-up approach uses a linked list to build a balanced BST. As a result, we’ll have a pointer to the head of the list and we can only move this pointer forward in constant time. The complexity of the top-down approach is O(n), where n is the number of elements inside the linked list.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#0d7377;">Close</button>
         </div>
       </div>
     </div>
@@ -101,7 +103,7 @@ background-color: pink;
           <p>Adding an element to an AVL tree is similar to adding one in a BST, but the process takes into account an extra attribute, the balance factor for each node. This factor indicates whether the tree is left-heavy (the height of the left sub-tree is 1 greater than the right sub-tree), balanced (both sub-trees are the same height) or right-heavy (the height of the right sub-tree is 1 greater than the left sub-tree). If the balance would be destroyed by an insertion, a rotation is performed to correct the balance.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#0d7377;">Close</button>
         </div>
       </div>
     </div>
@@ -120,7 +122,7 @@ background-color: pink;
           <p>Deletion can also be performed in the same way as it is performed in a binary search tree. Deletion may also disturb the balance of the tree therefore, various types of rotations are used to rebalance the tree.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#0d7377;">Close</button>
         </div>
       </div>
     </div>
@@ -138,7 +140,7 @@ background-color: pink;
           <p>The property that all the values lesser than the value of a node lies on the left subtree and all the values greater than the value of a node lies on the right subtree helps to perform the searching in O(h) time (where h is the height of the tree). Suppose we are on a node and the value to be searched is smaller than the value of the node. In that case, we will search for the value in the left subtree. Otherwise, if the value to be searched is larger, we will just search the right subtree.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#0d7377;">Close</button>
         </div>
       </div>
     </div>
@@ -146,23 +148,13 @@ background-color: pink;
 
         <br/><br/><br/><br/>
         <br>
-        <a href="{{url_for('home')}}"><button type="button" class="btn btn-default" style="background-color:#0d7377;" >Back</button></a>
+        <a href="{{url_for('home')}}"><button type="button" class="btn btn-secondary"style="background-color:#0d7377;" >Back</button></a>
       </div>
 
       <div class="main">
-    
-        <div class="inlinewithbgcolor">
-             <!--INLINEEEEEEEEEEEEE-->
-                <h2 style="color: #0d7377;"><strong><em>Visualise your AVL Tree!</em></strong></h2>
-                
-       <!--<div class="centrepink">
-            <p>Insert</p>
-        </div>-->
-        </div>
+        <h2 style="color: #0d7377;"><strong><em><u>Visualise your AVL Tree!</u></em></strong></h2>
+
        
-        <div>
-            <br>
-        </div>
         <div id="glowscript" class="glowscript">
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
@@ -2189,6 +2181,8 @@ background-color: pink;
                 });
             
                 if ((__name__ === "__main__" || typeof __name__ === "object" && ρσ_equals(__name__, "__main__"))) {
+
+                    
                     "993";
                     scene.background = bg_color;
                     "995";

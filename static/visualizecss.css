@@ -37,7 +37,7 @@ h1 {text-align: center;}
     border-color: #0d7377;
   margin-left: 210px; /* Same as the width of the sidebar */
   padding: 10px 10px;
-  height:700px;
+  height:100%;
   width:1059px;
   background-color: #e4f9f5;
 }
@@ -86,13 +86,3 @@ button{
     
 }
 
-.inlinewithbgcolor{
-    border-style: solid;
-    border-color: #002C30;
-    border-width: 0 0 2px 0;
-    display: inline-block;
-    background-color: #e4f9f5;
-    height: 700px;
-
-   
-}
